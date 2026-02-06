@@ -1,8 +1,9 @@
 ---
 sidebar_position: 4
+sidebar_label: "🔄 Cross-Cloud Data Synchronization"
 ---
 
-# Cross-Cloud Data Synchronization
+# 🔄 Cross-Cloud Data Synchronization
 
 GodsEye operates across AWS (primary), GCP (secondary), and Azure (tertiary). Every byte of data has a classification tier, a sync method, and a conflict resolution strategy. No exceptions.
 

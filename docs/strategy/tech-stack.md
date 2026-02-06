@@ -1,9 +1,10 @@
 ---
 sidebar_position: 4
 title: Technology Stack
+sidebar_label: "🔧 Technology Stack"
 ---
 
-# Technology Stack
+# 🔧 Technology Stack
 
 Complete technology stack for the GodsEye platform with rationale for each choice.
 

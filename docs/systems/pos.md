@@ -1,8 +1,9 @@
 ---
 sidebar_position: 5
+sidebar_label: "🖥️ Point of Sale System"
 ---
 
-# Point of Sale System
+# 🖥️ Point of Sale System
 
 GodsEye POS is a PWA that runs on iPad, Android tablets, and Windows terminals. It operates fully offline, syncs when connected, and integrates all omnichannel workflows. This is core IP -- built in-house from day one.
 

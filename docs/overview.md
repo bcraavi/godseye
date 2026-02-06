@@ -1,13 +1,14 @@
 ---
 slug: /
 sidebar_position: 1
+sidebar_label: "🔭 GodsEye Platform Architecture"
 ---
 
-# GodsEye Platform Architecture
+# 🔭 GodsEye Platform Architecture
 
 GodsEye is the complete AI-first technology spine for mid-market retail ($1-50B revenue). One platform replaces your entire vendor stack -- ERP, commerce, CRM, observability, consulting, and infrastructure -- with 36 integrated components, 20+ AI agents, and multi-cloud resilience across AWS, GCP, and Azure.
 
-## Platform Stack
+## 🏗️ Platform Stack
 
 ```mermaid
 block-beta
@@ -76,7 +77,7 @@ block-beta
   L2 --> L1
 ```
 
-## Key Numbers
+## 📊 Key Numbers
 
 | Metric | Value |
 |---|---|
@@ -89,7 +90,7 @@ block-beta
 | Max Failover Time (Tier 1) | < 30 seconds |
 | Recovery Time (Tier 3) | < 4 hours |
 
-## What GodsEye Replaces
+## 🔄 What GodsEye Replaces
 
 | Capability | Incumbent Vendors Replaced | GodsEye Component |
 |---|---|---|
@@ -106,7 +107,7 @@ block-beta
 | AI / ML Platform | Databricks, SageMaker, Vertex AI | Layer 3: Full AI Engine |
 | Consulting & Integration | Accenture, Deloitte, Infosys | Platform-native; no glue code needed |
 
-## Architecture Principles
+## 🎯 Architecture Principles
 
 1. **AI-native** -- AI agents are not bolted on; they are the decision layer (Layer 3) between operations and infrastructure.
 2. **Multi-cloud by default** -- Tier 1 services run on all 3 clouds simultaneously. No single cloud is a SPOF.

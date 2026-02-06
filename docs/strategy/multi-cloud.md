@@ -1,9 +1,10 @@
 ---
 sidebar_position: 2
 title: Multi-Cloud Strategy
+sidebar_label: "☁️ Multi-Cloud Strategy"
 ---
 
-# Multi-Cloud Strategy
+# ☁️ Multi-Cloud Strategy
 
 > **The Flutter Model:** Like Flutter compiles one codebase to iOS and Android, GodsEye deploys critical services natively to AWS, GCP, **and** Azure simultaneously. If any single cloud has a catastrophic failure, stores stay open.
 

@@ -1,8 +1,9 @@
 ---
 sidebar_position: 1
+sidebar_label: "📐 Five-Layer Architecture"
 ---
 
-# Five-Layer Architecture
+# 📐 Five-Layer Architecture
 
 ## Inter-Layer Data Flow
 

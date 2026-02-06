@@ -1,9 +1,10 @@
 ---
 sidebar_position: 2
 title: Customer AI Agents
+sidebar_label: "🛒 Customer AI Agents"
 ---
 
-# Customer AI Agents
+# 🛒 Customer AI Agents
 
 Customer AI is the customer-facing agent family. Four agents handle shopping assistance, visual search, customer service, and personalization. All run through the [Agent Mesh](./agent-mesh) orchestrator and share the per-tenant Knowledge Graph.
 

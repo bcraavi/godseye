@@ -1,8 +1,9 @@
 ---
 sidebar_position: 3
+sidebar_label: "🌐 Global Load Balancing & Traffic Management"
 ---
 
-# Global Load Balancing & Traffic Management
+# 🌐 Global Load Balancing & Traffic Management
 
 GodsEye traffic layer: GeoDNS + CDN edge + per-cloud LBs + Istio service mesh. Priority-based traffic shaping ensures checkout/payments never degrade. Multi-cloud failover in under 60 seconds.
 

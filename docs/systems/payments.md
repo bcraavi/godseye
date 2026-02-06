@@ -1,8 +1,9 @@
 ---
 sidebar_position: 2
+sidebar_label: "💳 Payment Gateway Orchestrator"
 ---
 
-# Payment Gateway Orchestrator
+# 💳 Payment Gateway Orchestrator
 
 GodsEye payment layer: multi-gateway smart routing, PCI-DSS Level 1 tokenization, offline-capable POS, AI-driven fraud and cost optimization. All gateways remain third-party -- GodsEye never processes raw card data.
 

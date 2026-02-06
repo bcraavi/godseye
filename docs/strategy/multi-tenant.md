@@ -1,9 +1,10 @@
 ---
 sidebar_position: 3
 title: Multi-Tenant Architecture
+sidebar_label: "🏢 Multi-Tenant Architecture"
 ---
 
-# Multi-Tenant Architecture
+# 🏢 Multi-Tenant Architecture
 
 GodsEye uses a **Bridge Model** multi-tenancy approach -- a tiered isolation strategy that lets each tenant operate at the isolation level matching their size, compliance posture, and budget.
 

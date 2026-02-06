@@ -1,8 +1,9 @@
 ---
 sidebar_position: 6
+sidebar_label: "🛒 Headless Commerce Engine"
 ---
 
-# Headless Commerce Engine
+# 🛒 Headless Commerce Engine
 
 GodsEye Commerce is a headless API-first engine that powers every selling channel -- web, mobile, POS, social, voice, and marketplace. A single backend, many frontends.
 

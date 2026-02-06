@@ -1,8 +1,9 @@
 ---
 sidebar_position: 1
+sidebar_label: "🔐 Authentication & Identity System"
 ---
 
-# Authentication & Identity System
+# 🔐 Authentication & Identity System
 
 GodsEye identity layer: multi-cloud active-active Keycloak federation. Four identity types, RBAC hierarchy, offline-capable POS auth. Zero-trust architecture throughout.
 

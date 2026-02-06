@@ -1,8 +1,9 @@
 ---
 sidebar_position: 3
+sidebar_label: "🛠️ Engineering Platform"
 ---
 
-# Layer 2 -- Engineering Platform
+# 🛠️ Layer 2 -- Engineering Platform
 
 > **12 modules. One control plane. Everything a mid-market retailer needs to build, ship, secure, and operate software -- without assembling 40 vendors.**
 

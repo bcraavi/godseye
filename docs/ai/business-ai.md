@@ -1,9 +1,10 @@
 ---
 sidebar_position: 4
 title: Business AI Agents
+sidebar_label: "📊 Business AI Agents"
 ---
 
-# Business AI Agents
+# 📊 Business AI Agents
 
 Six autonomous agents that optimize retail operations end-to-end: predict demand, set prices, balance inventory, catch fraud, understand customers, and manage the supply chain. Every agent feeds the Knowledge Graph and consumes from it -- decisions compound.
 

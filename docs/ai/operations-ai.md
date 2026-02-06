@@ -1,9 +1,10 @@
 ---
 sidebar_position: 3
 title: Operations AI Agents
+sidebar_label: "⚡ Operations AI Agents"
 ---
 
-# Operations AI Agents
+# ⚡ Operations AI Agents
 
 Five autonomous agents that keep GodsEye running 24/7 across all clouds, all channels, all stores. They monitor, deploy, secure, optimize data pipelines, and control cloud spend -- without waiting for humans.
 

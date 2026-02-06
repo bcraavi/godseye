@@ -1,9 +1,10 @@
 ---
 sidebar_position: 1
 title: AI Agent Mesh
+sidebar_label: "🕸️ AI Agent Mesh"
 ---
 
-# AI Agent Mesh
+# 🕸️ AI Agent Mesh
 
 GodsEye runs 20+ AI agents across four families. The Agent Mesh is the coordination layer that routes requests, enforces safety boundaries, manages shared memory, and selects the right LLM for every task.
 

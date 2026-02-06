@@ -1,8 +1,9 @@
 ---
 sidebar_position: 2
+sidebar_label: "☁️ Multi-Cloud Infrastructure"
 ---
 
-# Layer 1 -- Multi-Cloud Infrastructure
+# ☁️ Layer 1 -- Multi-Cloud Infrastructure
 
 > **The Flutter Model -- Write Once, Run on Every Cloud, Never Go Down**
 

@@ -1,9 +1,10 @@
 ---
 sidebar_position: 6
 title: Customer Experience Layer
+sidebar_label: "🛍️ Customer Experience Layer"
 ---
 
-# Customer Experience Layer
+# 🛍️ Customer Experience Layer
 
 Every surface the shopper touches. All channels share a single unified session, cart, and customer profile backed by Layer 4 services. AI personalization from Layer 3 is injected at every touchpoint in real time.
 

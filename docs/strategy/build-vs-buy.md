@@ -1,9 +1,10 @@
 ---
 sidebar_position: 1
 title: Build vs Buy Strategy
+sidebar_label: "🔨 Build vs Buy Strategy"
 ---
 
-# Build vs Buy Strategy
+# 🔨 Build vs Buy Strategy
 
 > **Core Principle:** Start with third-party dependencies, gradually decouple and build our own services.
 

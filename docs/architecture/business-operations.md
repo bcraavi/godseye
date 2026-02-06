@@ -1,8 +1,9 @@
 ---
 sidebar_position: 5
+sidebar_label: "💼 Business Operations"
 ---
 
-# Layer 4 — Business Operations
+# 💼 Layer 4 — Business Operations
 
 GodsEye replaces the patchwork of Oracle Retail, SAP, Salesforce, Manhattan, and Blue Yonder with a unified, AI-native business operations layer. 12 modules, single data model, real-time event-driven.
 

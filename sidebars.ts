@@ -5,7 +5,7 @@ const sidebars: SidebarsConfig = {
     'overview',
     {
       type: 'category',
-      label: 'Architecture',
+      label: '🏗️ Architecture',
       collapsed: false,
       items: [
         'architecture/five-layers',
@@ -18,7 +18,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Core Systems',
+      label: '⚙️ Core Systems',
       collapsed: false,
       items: [
         'systems/authentication',
@@ -31,7 +31,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'AI Agents',
+      label: '🤖 AI Agents',
       collapsed: false,
       items: [
         'ai/agent-mesh',
@@ -42,7 +42,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Strategy',
+      label: '📋 Strategy',
       collapsed: false,
       items: [
         'strategy/build-vs-buy',
