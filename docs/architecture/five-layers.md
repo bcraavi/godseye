@@ -80,6 +80,18 @@ flowchart TB
     L4 -. "Telemetry" .-> L2_Observe
     L3 -. "Telemetry" .-> L2_Observe
     L1 -. "Health" .-> L2_Observe
+
+    classDef green fill:#059669,stroke:#34d399,color:#fff
+    classDef amber fill:#d97706,stroke:#fbbf24,color:#fff
+    classDef purple fill:#7c3aed,stroke:#a78bfa,color:#fff
+    classDef blue fill:#2563eb,stroke:#60a5fa,color:#fff
+    classDef slate fill:#475569,stroke:#94a3b8,color:#fff
+
+    class L5_Web,L5_Mobile,L5_Store,L5_AI,L5_Voice,L5_Social green
+    class L4_Commerce,L4_Inventory,L4_OMS,L4_Fulfillment,L4_POS,L4_CRM,L4_Pricing,L4_SC,L4_WF,L4_Fin,L4_Mktg,L4_Vendor amber
+    class L3_Cust,L3_Ops,L3_Biz,L3_Dev purple
+    class L2_Portal,L2_Observe,L2_Respond,L2_Deploy,L2_Shield,L2_Flow,L2_Lens,L2_Mobile,L2_Connect,L2_Govern,L2_Market,L2_Extend blue
+    class L1_AWS,L1_GCP,L1_Azure,L1_Mesh slate
 ```
 
 ---
@@ -129,6 +141,21 @@ flowchart LR
     Auth -- "Token validation" --> L2_Shield["Layer 2:\nShield"]
     CDN -- "Cache invalidation" --> L1_Edge["Layer 1:\nEdge PoPs"]
     PersonalFeed -- "Recommendations" --> L3_CustAI["Layer 3:\nCustomer AI"]
+
+    classDef green fill:#059669,stroke:#34d399,color:#fff
+    classDef purple fill:#7c3aed,stroke:#a78bfa,color:#fff
+    classDef cyan fill:#0891b2,stroke:#22d3ee,color:#fff
+    classDef blue fill:#2563eb,stroke:#60a5fa,color:#fff
+    classDef amber fill:#d97706,stroke:#fbbf24,color:#fff
+    classDef slate fill:#475569,stroke:#94a3b8,color:#fff
+
+    class Web,Mobile,Store,Voice,Social green
+    class AIShopping,PersonalFeed,VisualSearch purple
+    class Session,CDN,Auth,Cart cyan
+    class L4_Commerce amber
+    class L2_Shield blue
+    class L1_Edge slate
+    class L3_CustAI purple
 ```
 
 ---
@@ -177,6 +204,17 @@ flowchart TB
     L3 -- "Demand forecasts" --> SupplyChain
     L3 -- "Churn signals" --> CRM
     L3 -- "Fraud scores" --> OMS
+
+    classDef amber fill:#d97706,stroke:#fbbf24,color:#fff
+    classDef cyan fill:#0891b2,stroke:#22d3ee,color:#fff
+    classDef purple fill:#7c3aed,stroke:#a78bfa,color:#fff
+
+    class Commerce,OMS,Fulfillment,Shipping,POS amber
+    class Inventory,Pricing,SupplyChain,VendorMgmt amber
+    class CRM,Marketing amber
+    class Finance,Workforce amber
+    class EventBus cyan
+    class L3 purple
 ```
 
 ---
@@ -246,6 +284,21 @@ flowchart TB
 
     TrainingPipeline -- "GPU jobs" --> L2_Deploy["Layer 2:\nDeploy"]
     InferenceCluster -- "Metrics" --> L2_Observe["Layer 2:\nObserve"]
+
+    classDef green fill:#059669,stroke:#34d399,color:#fff
+    classDef rose fill:#e11d48,stroke:#fb7185,color:#fff
+    classDef amber fill:#d97706,stroke:#fbbf24,color:#fff
+    classDef purple fill:#7c3aed,stroke:#a78bfa,color:#fff
+    classDef cyan fill:#0891b2,stroke:#22d3ee,color:#fff
+    classDef blue fill:#2563eb,stroke:#60a5fa,color:#fff
+
+    class Personalization,ChurnPredict,Segmentation,NPS,RecEngine,VisSearch green
+    class DemandForecast,AutoReplenish,RouteOpt,AnomalyDetect,WarehouseOpt rose
+    class PriceOpt,FraudDetect,FinForecast,WorkforceAI,MarketMix amber
+    class CodeReview,IncidentAI,CapacityPlan,TestGen,DocGen purple
+    class FeatureStore,ModelRegistry,TrainingPipeline,InferenceCluster,ExperimentTrack,VectorDB cyan
+    class L4_Bus amber
+    class L2_Deploy,L2_Observe blue
 ```
 
 ---
@@ -301,6 +354,19 @@ flowchart TB
 
     Respond -- "Auto-remediation" --> L3_DevAI["Layer 3:\nDeveloper AI"]
     Observe -- "Anomaly data" --> L3_DevAI
+
+    classDef blue fill:#2563eb,stroke:#60a5fa,color:#fff
+    classDef cyan fill:#0891b2,stroke:#22d3ee,color:#fff
+    classDef rose fill:#e11d48,stroke:#fb7185,color:#fff
+    classDef slate fill:#475569,stroke:#94a3b8,color:#fff
+    classDef purple fill:#7c3aed,stroke:#a78bfa,color:#fff
+
+    class Portal,Deploy,Flow,Extend blue
+    class Observe,Respond,Lens cyan
+    class Shield,Govern rose
+    class Connect,MobilePlat,Market slate
+    class L1 slate
+    class L3_DevAI purple
 ```
 
 ---
@@ -377,6 +443,18 @@ flowchart TB
     CertMgmt --> AWS_KMS
     CertMgmt --> GCP_KMS
     CertMgmt --> AZ_KV
+
+    classDef cyan fill:#0891b2,stroke:#22d3ee,color:#fff
+    classDef aws fill:#ff9900,stroke:#ffb84d,color:#fff
+    classDef gcp fill:#4285f4,stroke:#79b0ff,color:#fff
+    classDef azure fill:#0078d4,stroke:#4da6ff,color:#fff
+    classDef slate fill:#475569,stroke:#94a3b8,color:#fff
+
+    class GlobalLB,ServiceMesh,DNS,CertMgmt cyan
+    class AWS_EKS,AWS_RDS,AWS_S3,AWS_CF,AWS_KMS,AWS_GPU aws
+    class GCP_GKE,GCP_SQL,GCP_GCS,GCP_CDN,GCP_KMS,GCP_GPU gcp
+    class AZ_AKS,AZ_SQL,AZ_Blob,AZ_FD,AZ_KV azure
+    class CockroachDB,Redis,Kafka,ObjectSync slate
 ```
 
 ---
@@ -442,6 +520,20 @@ flowchart LR
     Tier2 --> GCP
 
     Tier3 --> AWS
+
+    classDef red fill:#dc2626,stroke:#f87171,color:#fff
+    classDef amber fill:#d97706,stroke:#fbbf24,color:#fff
+    classDef slate fill:#475569,stroke:#94a3b8,color:#fff
+    classDef aws fill:#ff9900,stroke:#ffb84d,color:#fff
+    classDef gcp fill:#4285f4,stroke:#79b0ff,color:#fff
+    classDef azure fill:#0078d4,stroke:#4da6ff,color:#fff
+
+    class T1_Auth,T1_Pay,T1_Cart,T1_Checkout,T1_POS,T1_CDN,T1_DNS,T1_Session red
+    class T2_Inv,T2_Search,T2_CustProf,T2_Price,T2_AIShopping,T2_Fraud,T2_APIGW,T2_Events,T2_Obs amber
+    class T3_Merch,T3_SC,T3_Analytics,T3_CICD,T3_Fin,T3_WF,T3_Vendor slate
+    class AWS aws
+    class GCP gcp
+    class Azure azure
 ```
 
 ---
@@ -514,4 +606,16 @@ flowchart TB
     L4_Order -. "Telemetry" .-> L2_Ops
     L3_CustAI -. "Telemetry" .-> L2_Ops
     L1_Compute -. "Health" .-> L2_Ops
+
+    classDef green fill:#059669,stroke:#34d399,color:#fff
+    classDef amber fill:#d97706,stroke:#fbbf24,color:#fff
+    classDef purple fill:#7c3aed,stroke:#a78bfa,color:#fff
+    classDef blue fill:#2563eb,stroke:#60a5fa,color:#fff
+    classDef slate fill:#475569,stroke:#94a3b8,color:#fff
+
+    class L5_Channels green
+    class L4_Order,L4_Product,L4_Customer amber
+    class L3_CustAI,L3_OpsAI,L3_BizAI,L3_DevAI purple
+    class L2_DevEx,L2_Ops,L2_Sec,L2_Int blue
+    class L1_Compute,L1_Data,L1_Net slate
 ```

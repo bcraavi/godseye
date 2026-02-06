@@ -14,7 +14,7 @@ GodsEye is the complete AI-first technology spine for mid-market retail ($1-50B 
 block-beta
   columns 1
 
-  block:L5["LAYER 5 -- CUSTOMER EXPERIENCE"]:1
+  block:L5["🛍️ LAYER 5 — CUSTOMER EXPERIENCE"]:1
     columns 6
     Web["Web Storefront"]
     Mobile["Mobile Apps"]
@@ -24,7 +24,7 @@ block-beta
     Social["Social Commerce"]
   end
 
-  block:L4["LAYER 4 -- BUSINESS OPERATIONS"]:1
+  block:L4["💼 LAYER 4 — BUSINESS OPERATIONS"]:1
     columns 6
     Commerce["Commerce Engine"]
     Inventory["Inventory Mgmt"]
@@ -40,7 +40,7 @@ block-beta
     VendorMgmt["Vendor Mgmt"]
   end
 
-  block:L3["LAYER 3 -- AI ENGINE"]:1
+  block:L3["🧠 LAYER 3 — AI ENGINE"]:1
     columns 4
     CustomerAI["Customer AI\n(Personalization, Churn,\nSegmentation, NPS)"]
     OpsAI["Operations AI\n(Demand Forecast, Replenish,\nRoute Optimize, Anomaly)"]
@@ -48,7 +48,7 @@ block-beta
     DevAI["Developer AI\n(Code Review, Incident,\nCapacity, Test Gen)"]
   end
 
-  block:L2["LAYER 2 -- ENGINEERING PLATFORM"]:1
+  block:L2["🛠️ LAYER 2 — ENGINEERING PLATFORM"]:1
     columns 6
     Portal["Portal / IDP"]
     Observe["Observe"]
@@ -64,7 +64,7 @@ block-beta
     Extend["Extend"]
   end
 
-  block:L1["LAYER 1 -- MULTI-CLOUD INFRASTRUCTURE"]:1
+  block:L1["☁️ LAYER 1 — MULTI-CLOUD INFRASTRUCTURE"]:1
     columns 3
     AWS["AWS\n(Primary)"]
     GCP["GCP\n(Secondary)"]
@@ -75,6 +75,48 @@ block-beta
   L4 --> L3
   L3 --> L2
   L2 --> L1
+
+  style Web fill:#059669,stroke:#34d399,color:#fff
+  style Mobile fill:#059669,stroke:#34d399,color:#fff
+  style Store fill:#059669,stroke:#34d399,color:#fff
+  style AIShopping fill:#059669,stroke:#34d399,color:#fff
+  style Voice fill:#059669,stroke:#34d399,color:#fff
+  style Social fill:#059669,stroke:#34d399,color:#fff
+
+  style Commerce fill:#d97706,stroke:#fbbf24,color:#fff
+  style Inventory fill:#d97706,stroke:#fbbf24,color:#fff
+  style OMS fill:#d97706,stroke:#fbbf24,color:#fff
+  style Fulfillment fill:#d97706,stroke:#fbbf24,color:#fff
+  style POS fill:#d97706,stroke:#fbbf24,color:#fff
+  style CRM fill:#d97706,stroke:#fbbf24,color:#fff
+  style Pricing fill:#d97706,stroke:#fbbf24,color:#fff
+  style SupplyChain fill:#d97706,stroke:#fbbf24,color:#fff
+  style Workforce fill:#d97706,stroke:#fbbf24,color:#fff
+  style Finance fill:#d97706,stroke:#fbbf24,color:#fff
+  style Marketing fill:#d97706,stroke:#fbbf24,color:#fff
+  style VendorMgmt fill:#d97706,stroke:#fbbf24,color:#fff
+
+  style CustomerAI fill:#7c3aed,stroke:#a78bfa,color:#fff
+  style OpsAI fill:#7c3aed,stroke:#a78bfa,color:#fff
+  style BizAI fill:#7c3aed,stroke:#a78bfa,color:#fff
+  style DevAI fill:#7c3aed,stroke:#a78bfa,color:#fff
+
+  style Portal fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Observe fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Respond fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Deploy fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Shield fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Flow fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Lens fill:#2563eb,stroke:#60a5fa,color:#fff
+  style MobilePlat fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Connect fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Govern fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Market fill:#2563eb,stroke:#60a5fa,color:#fff
+  style Extend fill:#2563eb,stroke:#60a5fa,color:#fff
+
+  style AWS fill:#ff9900,stroke:#ffb84d,color:#fff
+  style GCP fill:#4285f4,stroke:#79b0ff,color:#fff
+  style Azure fill:#0078d4,stroke:#4da6ff,color:#fff
 ```
 
 ## 📊 Key Numbers
