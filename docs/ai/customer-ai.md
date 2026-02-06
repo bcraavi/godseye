@@ -60,7 +60,7 @@ graph TB
     ORCH --> PRICE
     ORCH --> PROFILE
 
-    LLM -->|"Claude API"| ORCH
+    LLM -->|"Claude Opus 4.6"| ORCH
 ```
 
 ### Channel Details
@@ -106,7 +106,7 @@ flowchart LR
     RANK --> RES["Results\n(top 10)"]
 
     subgraph Models["Model Layer"]
-        GEM["Gemini API\n(multimodal understanding)"]
+        GEM["Gemini 3 Pro\n(multimodal understanding)"]
         CV["GodsEye Vision\n(fine-tuned embeddings)"]
     end
 
@@ -133,10 +133,10 @@ flowchart LR
 
 | Component | Model | Purpose |
 |---|---|---|
-| **Multimodal understanding** | Gemini Pro Vision (Google) | Scene understanding, attribute extraction from natural photos |
+| **Multimodal understanding** | Gemini 3 Pro (Google) | Scene understanding, attribute extraction from natural photos |
 | **Product embeddings** | GodsEye fine-tuned ResNet/ViT | Catalog-specific visual similarity, trained on tenant product images |
 | **Damage classification** | GodsEye fine-tuned model | 4-class damage grading for returns processing |
-| **Shelf recognition** | Gemini + custom object detection | Planogram compliance, stock gap detection |
+| **Shelf recognition** | Gemini 3 + custom object detection | Planogram compliance, stock gap detection |
 
 ### Performance Targets
 
@@ -307,7 +307,7 @@ flowchart TB
 
 | Agent | Trust Level (typical) | Primary LLM | Fallback LLM | Key Integration |
 |---|---|---|---|---|
-| Shopping Assistant | L1 Suggest | Claude (Anthropic) | GPT-4 (OpenAI) | Product Catalog, Inventory, Pricing |
-| Visual Search & Style AI | L1 Suggest | Gemini (Google) | GodsEye fine-tuned | Product Image Index, Inventory |
-| Customer Service AI | L2 Auto-fix | Claude (Anthropic) | GPT-4 (OpenAI) | OMS, Payments, Returns |
-| Personalization Engine | L2 Auto-fix | GodsEye fine-tuned | Claude (Anthropic) | Customer Profile, Feature Store |
+| Shopping Assistant | L1 Suggest | Claude Opus 4.6 (Anthropic) | GPT-5.2 (OpenAI) | Product Catalog, Inventory, Pricing |
+| Visual Search & Style AI | L1 Suggest | Gemini 3 Pro (Google) | GodsEye fine-tuned | Product Image Index, Inventory |
+| Customer Service AI | L2 Auto-fix | Claude Opus 4.6 (Anthropic) | GPT-5.2 (OpenAI) | OMS, Payments, Returns |
+| Personalization Engine | L2 Auto-fix | GodsEye fine-tuned | Claude Sonnet 4.5 (Anthropic) | Customer Profile, Feature Store |

@@ -79,10 +79,10 @@ graph TD
 
     subgraph LLMGateway["LLM Gateway"]
         GW[Router / Load Balancer]
-        Claude[Claude 3.5+ / Opus]
-        GPT4[GPT-4 / GPT-4o]
-        Gemini[Gemini 1.5 Pro]
-        SelfHosted[Self-Hosted Llama 3]
+        Claude[Claude Opus 4.6 / Sonnet 4.5]
+        GPT4[GPT-5.3 Codex / GPT-5.2]
+        Gemini[Gemini 3 Pro]
+        SelfHosted[Self-Hosted Llama 4 Maverick]
         FineTuned[Fine-Tuned Retail Models]
     end
 
@@ -109,33 +109,33 @@ flowchart TD
 
     CLASSIFY -->|Customer Chat / Safety-Critical| R_CLAUDE[Route: Claude]
     CLASSIFY -->|Code Analysis / Reasoning| R_CODE{Code Complexity?}
-    CLASSIFY -->|Image / Multimodal| R_GEMINI[Route: Gemini 1.5 Pro]
-    CLASSIFY -->|Data-Sensitive / PII| R_SELF[Route: Self-Hosted Llama 3]
+    CLASSIFY -->|Image / Multimodal| R_GEMINI[Route: Gemini 3 Pro]
+    CLASSIFY -->|Data-Sensitive / PII| R_SELF[Route: Self-Hosted Llama 4]
     CLASSIFY -->|Retail Domain Specific| R_FINE[Route: Fine-Tuned Retail Model]
 
-    R_CODE -->|High complexity| R_CLAUDE_CODE[Route: Claude Opus]
-    R_CODE -->|Standard| R_GPT4[Route: GPT-4]
+    R_CODE -->|High complexity| R_CLAUDE_CODE[Route: Claude Opus 4.6]
+    R_CODE -->|Standard| R_GPT4[Route: GPT-5.3 Codex]
 
     R_CLAUDE -->|Success| RESP[Return Response]
-    R_CLAUDE -->|Failure / Timeout| FB1[Fallback: GPT-4]
+    R_CLAUDE -->|Failure / Timeout| FB1[Fallback: GPT-5.3]
     FB1 -->|Success| RESP
-    FB1 -->|Failure| FB1B[Fallback: Self-Hosted Llama 3]
+    FB1 -->|Failure| FB1B[Fallback: Self-Hosted Llama 4]
     FB1B --> RESP
 
     R_CLAUDE_CODE -->|Success| RESP
-    R_CLAUDE_CODE -->|Failure / Timeout| FB2[Fallback: GPT-4]
+    R_CLAUDE_CODE -->|Failure / Timeout| FB2[Fallback: GPT-5.3]
     FB2 -->|Success| RESP
-    FB2 -->|Failure| FB2B[Fallback: Self-Hosted Llama 3]
+    FB2 -->|Failure| FB2B[Fallback: Self-Hosted Llama 4]
     FB2B --> RESP
 
     R_GPT4 -->|Success| RESP
     R_GPT4 -->|Failure / Timeout| FB3[Fallback: Claude]
     FB3 -->|Success| RESP
-    FB3 -->|Failure| FB3B[Fallback: Self-Hosted Llama 3]
+    FB3 -->|Failure| FB3B[Fallback: Self-Hosted Llama 4]
     FB3B --> RESP
 
     R_GEMINI -->|Success| RESP
-    R_GEMINI -->|Failure / Timeout| FB4[Fallback: GPT-4 Vision]
+    R_GEMINI -->|Failure / Timeout| FB4[Fallback: GPT-5.3 Vision]
     FB4 -->|Success| RESP
     FB4 -->|Failure| FB4B[Fallback: Claude Vision]
     FB4B --> RESP
@@ -149,7 +149,7 @@ flowchart TD
     R_FINE -->|Success| RESP
     R_FINE -->|Failure / Timeout| FB6[Fallback: Claude + Retail Prompt]
     FB6 -->|Success| RESP
-    FB6 -->|Failure| FB6B[Fallback: GPT-4 + Retail Prompt]
+    FB6 -->|Failure| FB6B[Fallback: GPT-5.3 + Retail Prompt]
     FB6B --> RESP
 
     RESP --> AUDIT[(Audit: model used, latency, tokens, cost)]
@@ -334,18 +334,18 @@ sequenceDiagram
 
 | Task Type | Primary Model | Fallback 1 | Fallback 2 | Rationale |
 |-----------|--------------|------------|------------|-----------|
-| Customer chat (safety-critical) | Claude 3.5 Sonnet | GPT-4o | Self-Hosted Llama 3 | Best safety guardrails, lowest hallucination rate |
-| Complex reasoning / planning | Claude Opus | GPT-4 | Self-Hosted Llama 3 | Strongest multi-step reasoning |
-| Code analysis / review | Claude Opus | GPT-4 | Self-Hosted CodeLlama | Top coding benchmarks, large context window |
-| Code generation | Claude Sonnet | GPT-4o | Self-Hosted CodeLlama | Speed + quality balance for generation tasks |
-| Image / visual analysis | Gemini 1.5 Pro | GPT-4 Vision | Claude Vision | Best multimodal for product image understanding |
-| Data-sensitive / PII operations | Self-Hosted Llama 3 | Secondary Self-Hosted | Queue + Retry | Data never leaves private infrastructure |
-| Demand forecasting prompts | Fine-Tuned Retail Model | Claude + Retail Prompt | GPT-4 + Retail Prompt | Domain-specific fine-tuning outperforms general models |
-| Pricing optimization | Fine-Tuned Retail Model | Claude + Retail Prompt | GPT-4 + Retail Prompt | Trained on historical margin/elasticity data |
-| Sentiment analysis | Claude Sonnet | GPT-4o-mini | Self-Hosted Llama 3 | Nuanced tone detection at scale |
-| Incident summarization | Claude Sonnet | GPT-4o | Self-Hosted Llama 3 | Accurate technical summarization |
-| Document / runbook generation | Claude Sonnet | GPT-4o | Self-Hosted Llama 3 | Long-form structured output quality |
-| Schema analysis | Claude Opus | GPT-4 | Self-Hosted Llama 3 | Precision required for DDL / migration safety |
-| Fraud pattern detection | Fine-Tuned Retail Model | Claude + Fraud Prompt | Self-Hosted Llama 3 | Trained on retailer's historical fraud data |
-| Customer segmentation | Fine-Tuned Retail Model | Claude + Retail Prompt | GPT-4 + Retail Prompt | Retail behavioral embeddings |
-| Inventory rebalancing | Fine-Tuned Retail Model | Claude + Retail Prompt | GPT-4 + Retail Prompt | Trained on supply chain constraints |
+| Customer chat (safety-critical) | Claude Sonnet 4.5 | GPT-5.2 | Self-Hosted Llama 4 Scout | Best safety guardrails, lowest hallucination rate |
+| Complex reasoning / planning | Claude Opus 4.6 | GPT-5.2 | Self-Hosted Llama 4 Maverick | Strongest multi-step reasoning, 1M context window |
+| Code analysis / review | Claude Opus 4.6 | GPT-5.3 Codex | Self-Hosted Llama 4 Maverick | Top coding benchmarks, best at catching bugs |
+| Code generation | Claude Sonnet 4.5 | GPT-5.3 Codex | Self-Hosted Devstral 2 | Speed + quality balance for generation tasks |
+| Image / visual analysis | Gemini 3 Pro | GPT-5.2 Vision | Claude Sonnet 4.5 Vision | Best multimodal for product image understanding |
+| Data-sensitive / PII operations | Self-Hosted Llama 4 Maverick | Self-Hosted Mistral Large 3 | Queue + Retry | Data never leaves private infrastructure |
+| Demand forecasting prompts | Fine-Tuned Retail Model | Claude + Retail Prompt | GPT-5.2 + Retail Prompt | Domain-specific fine-tuning outperforms general models |
+| Pricing optimization | Fine-Tuned Retail Model | Claude + Retail Prompt | GPT-5.2 + Retail Prompt | Trained on historical margin/elasticity data |
+| Sentiment analysis | Claude Sonnet 4.5 | GPT-5.2 | Self-Hosted Llama 4 Scout | Nuanced tone detection at scale |
+| Incident summarization | Claude Sonnet 4.5 | GPT-5.2 | Self-Hosted Llama 4 Scout | Accurate technical summarization |
+| Document / runbook generation | Claude Sonnet 4.5 | GPT-5.2 | Self-Hosted Llama 4 Scout | Long-form structured output quality |
+| Schema analysis | Claude Opus 4.6 | GPT-5.3 Codex | Self-Hosted Llama 4 Maverick | Precision required for DDL / migration safety |
+| Fraud pattern detection | Fine-Tuned Retail Model | Claude + Fraud Prompt | Self-Hosted Llama 4 Maverick | Trained on retailer's historical fraud data |
+| Customer segmentation | Fine-Tuned Retail Model | Claude + Retail Prompt | GPT-5.2 + Retail Prompt | Retail behavioral embeddings |
+| Inventory rebalancing | Fine-Tuned Retail Model | Claude + Retail Prompt | GPT-5.2 + Retail Prompt | Trained on supply chain constraints |

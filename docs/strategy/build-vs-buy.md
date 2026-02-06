@@ -22,7 +22,7 @@ GodsEye does not attempt to replace everything on day one. The strategy is to **
 | **OMS** | Manhattan / Salesforce OMS | GodsEye orchestration layer | Full GodsEye OMS |
 | **CRM / Loyalty** | Salesforce Service Cloud | GodsEye CRM overlay + unified profiles | Full GodsEye CRM |
 | **Observability** | Datadog / New Relic | GodsEye observability (Grafana stack) | Full GodsEye Observe |
-| **AI / ML** | Claude API / GPT-4 API | Fine-tuned models + self-hosted inference | GodsEye retail AI models |
+| **AI / ML** | Claude Opus 4.6 / GPT-5.3 Codex APIs | Fine-tuned models + self-hosted Llama 4 / Mistral 3 | GodsEye retail AI models |
 | **Auth** | Okta / Auth0 | Keycloak managed (single realm) | Multi-cloud Keycloak mesh |
 | **Search** | Algolia / Elasticsearch | OpenSearch managed | GodsEye Search (AI-powered, vector + lexical) |
 | **Data Pipeline** | Fivetran / dbt | GodsEye Flow overlay | Full GodsEye Flow |
@@ -185,7 +185,7 @@ flowchart TB
         E4["Manhattan\nSF OMS"]
         E5["Algolia\nElastic"]
         E6["Okta\nAuth0"]
-        E7["Claude API\nGPT-4"]
+        E7["Claude Opus 4.6\nGPT-5.3"]
     end
 
     WEB & MOB & POS & API --> GW
@@ -245,8 +245,8 @@ gantt
     Full GodsEye Observe                   :obs3, 2026-03, 2027-01
 
     section AI / ML
-    Claude API / GPT-4 API                 :done, ai1, 2025-01, 2025-06
-    Fine-tuned + self-hosted               :active, ai2, 2025-06, 2026-06
+    Claude Opus 4.6 / GPT-5.3 APIs         :done, ai1, 2025-01, 2025-06
+    Fine-tuned + self-hosted Llama 4       :active, ai2, 2025-06, 2026-06
     GodsEye Retail AI Models               :ai3, 2026-06, 2027-06
 
     section Auth

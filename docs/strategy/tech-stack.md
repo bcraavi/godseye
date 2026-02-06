@@ -21,7 +21,7 @@ Complete technology stack for the GodsEye platform with rationale for each choic
 | Database | Role | Why |
 |---|---|---|
 | **PostgreSQL** | Primary OLTP -- tenant data, orders, products, inventory | Battle-tested, schema-per-tenant via schemas + RLS, rich extension ecosystem (PostGIS, pg_partman) |
-| **CockroachDB** | Cross-cloud distributed SQL for Tier 1 critical data (payment records, audit logs) | Serializable isolation, automatic geo-partitioning, survives full cloud-region failures |
+| **CockroachDB v26** | Cross-cloud distributed SQL for Tier 1 critical data (payment records, audit logs) | Serializable isolation, automatic geo-partitioning, survives full cloud-region failures |
 | **ClickHouse** | Analytics / OLAP -- time-series metrics, business intelligence queries | Column-oriented, sub-second queries on billions of rows, efficient compression |
 | **Redis** | Caching, session store, shopping cart state | Sub-ms latency, CRDT support (Redis Enterprise) for cross-cloud active-active cart sync |
 | **OpenSearch** | Product search, log search, full-text queries | Scalable full-text search, integrates with observability stack, OpenSearch Dashboards for ops |
@@ -72,7 +72,7 @@ graph TB
 
 | Technology | Role | Why |
 |---|---|---|
-| **Kubernetes** (EKS / GKE / AKS) | Compute orchestration across AWS, GCP, Azure | Industry standard, consistent abstraction across all three clouds |
+| **Kubernetes 1.35+** (EKS / GKE / AKS) | Compute orchestration across AWS, GCP, Azure | Industry standard, consistent abstraction across all three clouds |
 | **Terraform + Crossplane** | Infrastructure as Code | Terraform for base infra, Crossplane for K8s-native cloud resource management (cloud-agnostic) |
 | **ArgoCD** | GitOps continuous deployment | Declarative, auditable deployments; auto-sync from Git; multi-cluster support |
 | **Istio** | Service mesh -- mTLS, traffic management, observability | Zero-trust networking, tenant-aware routing, canary/blue-green deployments, built-in telemetry |
@@ -92,9 +92,9 @@ graph TB
 
 | Technology | Role | Why |
 |---|---|---|
-| **LangChain / LangGraph** | Agent orchestration, chains, tool use, stateful workflows | Leading framework for LLM-powered agents, supports complex multi-step reasoning graphs |
-| **Claude API, GPT-4 API, Gemini API** | LLM providers (via LLM Gateway) | Multi-model strategy avoids vendor lock-in; route by cost, latency, or capability per task |
-| **Llama / Mistral** (self-hosted) | On-prem LLM for data-sensitive tenants | Data never leaves tenant boundary, required for Premium tenants with strict compliance |
+| **LangChain 1.0 / LangGraph 1.0** | Agent orchestration, chains, tool use, stateful workflows | Stable 1.0 releases with durable agent state, A2A/MCP protocol support, production-proven at Uber/LinkedIn/Klarna |
+| **Claude Opus 4.6, GPT-5.3-Codex, Gemini 3 Pro** | LLM providers (via LLM Gateway) | Multi-model strategy avoids vendor lock-in; route by cost, latency, or capability per task |
+| **Llama 4 Maverick / Mistral Large 3** (self-hosted) | On-prem LLM for data-sensitive tenants | Llama 4 Maverick (400B total, 17B active MoE), Mistral Large 3 (675B total, 41B active) -- data never leaves tenant boundary |
 | **Ray** | Distributed ML training and serving | Scales from laptop to cluster, unified framework for training + inference |
 | **MLflow** | Model lifecycle management | Experiment tracking, model registry, deployment management, audit trail |
 
@@ -109,9 +109,9 @@ graph TB
     subgraph "LLM Gateway"
         TC --> GW[LLM Gateway - Go]
         GW --> CL[Claude API]
-        GW --> GP[GPT-4 API]
-        GW --> GM[Gemini API]
-        GW --> SH[Self-Hosted Llama/Mistral]
+        GW --> GP[GPT-5.3 API]
+        GW --> GM[Gemini 3 API]
+        GW --> SH[Self-Hosted Llama 4/Mistral 3]
     end
 
     subgraph "ML Platform"
@@ -149,7 +149,7 @@ graph TB
 
 | Technology | Role | Why |
 |---|---|---|
-| **Next.js** | Web storefront (SSR/SSG), admin dashboard | Server-side rendering for SEO, static generation for performance, React Server Components |
+| **Next.js 16** | Web storefront (SSR/SSG), admin dashboard | Server-side rendering for SEO, static generation for performance, React Server Components, `use cache` directive |
 | **React Native** or **Flutter** | Mobile apps (associate-facing, customer-facing) | Cross-platform from single codebase; React Native for JS consistency, Flutter as alternative |
 | **Storybook** | Component library and design system | Isolated component development, visual regression testing, living documentation |
 

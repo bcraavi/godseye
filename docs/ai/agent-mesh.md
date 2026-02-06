@@ -191,10 +191,10 @@ The gateway selects the best model for each task based on capability requirement
 
 | Provider | Models | Strengths | Routed For | Latency | Cost |
 |---|---|---|---|---|---|
-| **Anthropic (Claude API)** | Claude Opus, Sonnet, Haiku | Reasoning, analysis, safety, long context | Customer-facing chat, complex analysis, policy decisions | Medium | $$$|
-| **OpenAI (GPT-4 API)** | GPT-4o, GPT-4 Turbo | Code generation, structured output, function calling | Code analysis, auto-fix generation, schema transforms | Medium | $$$ |
-| **Google (Gemini API)** | Gemini Pro, Gemini Flash | Multimodal, image/video understanding | Product image search, shelf scanning, damage detection | Medium | $$ |
-| **Self-hosted (Llama/Mistral)** | Llama 3, Mistral Large | Data sovereignty, no external calls | Data-sensitive tenants, PII processing, on-prem requirements | Low | $ (infra) |
+| **Anthropic (Claude API)** | Claude Opus 4.6, Sonnet 4.5, Haiku 4.5 | Reasoning, analysis, safety, 1M context window | Customer-facing chat, complex analysis, policy decisions | Medium | $$$|
+| **OpenAI (GPT-5 API)** | GPT-5.3 Codex, GPT-5.2 | Code generation, structured output, function calling | Code analysis, auto-fix generation, schema transforms | Medium | $$$ |
+| **Google (Gemini API)** | Gemini 3 Pro, Gemini 2.0 Flash | Multimodal, image/video understanding, agentic coding | Product image search, shelf scanning, damage detection | Medium | $$ |
+| **Self-hosted (Llama/Mistral)** | Llama 4 Maverick, Mistral Large 3 | Data sovereignty, no external calls, MoE efficiency | Data-sensitive tenants, PII processing, on-prem requirements | Low | $ (infra) |
 | **GodsEye fine-tuned** | Custom retail models | Retail-specific accuracy, smaller/faster | Product categorization, demand signals, return reason classification | Low | $ |
 
 ### Routing Decision Flow
@@ -203,12 +203,12 @@ The gateway selects the best model for each task based on capability requirement
 flowchart TD
     REQ["Incoming Request"] --> SENS{"Data sensitivity\ncheck"}
 
-    SENS -->|"PII / regulated\n/ tenant requires"| SELF["Self-hosted\nLlama / Mistral"]
+    SENS -->|"PII / regulated\n/ tenant requires"| SELF["Self-hosted\nLlama 4 / Mistral 3"]
     SENS -->|"Standard"| TASK{"Task type\nclassification"}
 
-    TASK -->|"Customer chat\nreasoning\nanalysis"| CLAUDE["Claude API\n(Anthropic)"]
-    TASK -->|"Code gen\nstructured output"| GPT["GPT-4 API\n(OpenAI)"]
-    TASK -->|"Image / video\nmultimodal"| GEMINI["Gemini API\n(Google)"]
+    TASK -->|"Customer chat\nreasoning\nanalysis"| CLAUDE["Claude Opus 4.6\n(Anthropic)"]
+    TASK -->|"Code gen\nstructured output"| GPT["GPT-5.3 Codex\n(OpenAI)"]
+    TASK -->|"Image / video\nmultimodal"| GEMINI["Gemini 3 Pro\n(Google)"]
     TASK -->|"Retail-specific\nclassification"| FINE["GodsEye\nfine-tuned"]
 
     CLAUDE -->|"Fail"| FALLBACK1{"Fallback"}
@@ -229,10 +229,10 @@ flowchart TD
 Every primary model has a defined secondary. If the primary returns an error, times out, or produces low-confidence output, the gateway retries with the fallback.
 
 ```
-Claude  → fallback → GPT-4
-GPT-4   → fallback → Claude
-Gemini  → fallback → GodsEye fine-tuned (vision)
-Fine-tuned → fallback → Self-hosted Llama
+Claude Opus 4.6  → fallback → GPT-5.3
+GPT-5.3          → fallback → Claude Opus 4.6
+Gemini 3 Pro     → fallback → GodsEye fine-tuned (vision)
+Fine-tuned       → fallback → Self-hosted Llama 4
 Self-hosted → fallback → Graceful degradation (cached response / human handoff)
 ```
 
@@ -292,10 +292,10 @@ GodsEye organizes its 20+ agents into four families. Each family has its own doc
 
 | Family | Focus | Key Agents | Primary LLMs |
 |---|---|---|---|
-| **[Customer AI](./customer-ai)** | Shopping, service, personalization, visual search | Shopping Assistant, Visual Search, Customer Service AI, Personalization Engine | Claude, Gemini |
-| **[Operations AI](./operations-ai)** | Demand, inventory, fulfillment, anomaly detection | Demand Forecaster, Replenishment AI, Route Optimizer, Anomaly Detector | GPT-4, fine-tuned |
-| **[Business AI](./business-ai)** | Pricing, fraud, finance, workforce | Price Optimizer, Fraud Detection, Finance Forecaster, Workforce Planner | Claude, GPT-4 |
-| **Developer AI** | Code, incidents, capacity, testing | Code Reviewer, Incident Responder, Capacity Planner, Test Generator | GPT-4, Claude |
+| **[Customer AI](./customer-ai)** | Shopping, service, personalization, visual search | Shopping Assistant, Visual Search, Customer Service AI, Personalization Engine | Claude Opus 4.6, Gemini 3 |
+| **[Operations AI](./operations-ai)** | Demand, inventory, fulfillment, anomaly detection | Demand Forecaster, Replenishment AI, Route Optimizer, Anomaly Detector | GPT-5.3, fine-tuned |
+| **[Business AI](./business-ai)** | Pricing, fraud, finance, workforce | Price Optimizer, Fraud Detection, Finance Forecaster, Workforce Planner | Claude Opus 4.6, GPT-5.3 |
+| **Developer AI** | Code, incidents, capacity, testing | Code Reviewer, Incident Responder, Capacity Planner, Test Generator | GPT-5.3 Codex, Claude Opus 4.6 |
 
 ### Cross-Family Interactions
 
