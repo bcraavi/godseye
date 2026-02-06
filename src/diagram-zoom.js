@@ -5,189 +5,172 @@
 
 const MIN_SCALE = 0.5;
 const MAX_SCALE = 4;
-const ZOOM_STEP = 0.3;
+const ZOOM_STEP = 0.25;
 
 function enhanceDiagram(container) {
-  if (container.dataset.zoomEnabled) return;
-  container.dataset.zoomEnabled = 'true';
+  if (container.dataset.zoomReady) return;
+  container.dataset.zoomReady = 'true';
 
-  // State
-  let scale = 1;
-  let translateX = 0;
-  let translateY = 0;
-  let isPanning = false;
-  let startX = 0;
-  let startY = 0;
+  const svg = container.querySelector('svg');
+  if (!svg) return;
 
-  // Wrapper setup
-  const wrapper = document.createElement('div');
-  wrapper.style.cssText =
-    'position:relative;overflow:hidden;border-radius:12px;';
+  // Make container the clipping boundary
+  container.style.position = 'relative';
+  container.style.overflow = 'hidden';
+  container.style.cursor = 'grab';
 
-  // Viewport that clips the SVG
-  const viewport = document.createElement('div');
-  viewport.style.cssText =
-    'overflow:hidden;cursor:grab;touch-action:none;min-height:200px;';
+  // State stored on the container element itself
+  const state = {scale: 1, tx: 0, ty: 0, panning: false, sx: 0, sy: 0};
 
-  // Move existing children into viewport
-  while (container.firstChild) {
-    viewport.appendChild(container.firstChild);
+  function apply(animate) {
+    svg.style.transformOrigin = '0 0';
+    svg.style.transition = animate ? 'transform 0.2s ease' : 'none';
+    svg.style.transform =
+      'translate(' + state.tx + 'px,' + state.ty + 'px) scale(' + state.scale + ')';
   }
 
-  // Controls bar
-  const controls = document.createElement('div');
-  controls.style.cssText =
+  // Build control buttons
+  const bar = document.createElement('div');
+  bar.style.cssText =
     'position:absolute;top:8px;right:8px;display:flex;gap:4px;z-index:10;';
 
-  function createBtn(label, title) {
-    const btn = document.createElement('button');
-    btn.textContent = label;
-    btn.title = title;
-    btn.style.cssText =
+  function makeBtn(text, tip) {
+    const b = document.createElement('button');
+    b.innerHTML = text;
+    b.title = tip;
+    b.style.cssText =
       'width:32px;height:32px;border:1px solid rgba(56,189,248,0.3);' +
-      'background:rgba(11,17,33,0.85);color:#e2e8f0;border-radius:6px;' +
+      'background:rgba(11,17,33,0.9);color:#e2e8f0;border-radius:6px;' +
       'cursor:pointer;font-size:16px;display:flex;align-items:center;' +
-      'justify-content:center;backdrop-filter:blur(8px);transition:background 0.15s;' +
-      'padding:0;line-height:1;';
-    btn.addEventListener('mouseenter', () => {
-      btn.style.background = 'rgba(56,189,248,0.2)';
-    });
-    btn.addEventListener('mouseleave', () => {
-      btn.style.background = 'rgba(11,17,33,0.85)';
-    });
-    return btn;
+      'justify-content:center;backdrop-filter:blur(8px);padding:0;' +
+      'line-height:1;user-select:none;';
+    b.onmouseenter = function () {
+      b.style.background = 'rgba(56,189,248,0.25)';
+    };
+    b.onmouseleave = function () {
+      b.style.background = 'rgba(11,17,33,0.9)';
+    };
+    return b;
   }
 
-  const zoomIn = createBtn('+', 'Zoom in');
-  const zoomOut = createBtn('\u2212', 'Zoom out');
-  const reset = createBtn('\u21BA', 'Reset view');
+  const btnIn = makeBtn('+', 'Zoom in');
+  const btnOut = makeBtn('&minus;', 'Zoom out');
+  const btnReset = makeBtn('&#x21BA;', 'Reset view');
 
-  controls.appendChild(zoomIn);
-  controls.appendChild(zoomOut);
-  controls.appendChild(reset);
-
-  function applyTransform() {
-    const svg = viewport.querySelector('svg');
-    if (!svg) return;
-    svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-    svg.style.transformOrigin = '0 0';
-    svg.style.transition = isPanning ? 'none' : 'transform 0.2s ease';
-  }
-
-  zoomIn.addEventListener('click', (e) => {
+  btnIn.onclick = function (e) {
+    e.preventDefault();
     e.stopPropagation();
-    scale = Math.min(MAX_SCALE, scale + ZOOM_STEP);
-    applyTransform();
-  });
+    state.scale = Math.min(MAX_SCALE, state.scale + ZOOM_STEP);
+    apply(true);
+  };
 
-  zoomOut.addEventListener('click', (e) => {
+  btnOut.onclick = function (e) {
+    e.preventDefault();
     e.stopPropagation();
-    scale = Math.max(MIN_SCALE, scale - ZOOM_STEP);
-    applyTransform();
-  });
+    state.scale = Math.max(MIN_SCALE, state.scale - ZOOM_STEP);
+    apply(true);
+  };
 
-  reset.addEventListener('click', (e) => {
+  btnReset.onclick = function (e) {
+    e.preventDefault();
     e.stopPropagation();
-    scale = 1;
-    translateX = 0;
-    translateY = 0;
-    applyTransform();
-  });
+    state.scale = 1;
+    state.tx = 0;
+    state.ty = 0;
+    apply(true);
+  };
 
-  // Mouse wheel zoom
-  viewport.addEventListener(
+  bar.appendChild(btnIn);
+  bar.appendChild(btnOut);
+  bar.appendChild(btnReset);
+  container.appendChild(bar);
+
+  // Wheel zoom
+  container.addEventListener(
     'wheel',
-    (e) => {
+    function (e) {
       e.preventDefault();
-      const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
-      scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
-      applyTransform();
+      var d = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale + d));
+      apply(false);
     },
     {passive: false},
   );
 
-  // Pan with mouse drag
-  viewport.addEventListener('mousedown', (e) => {
-    if (e.button !== 0) return;
-    isPanning = true;
-    startX = e.clientX - translateX;
-    startY = e.clientY - translateY;
-    viewport.style.cursor = 'grabbing';
+  // Pan — mousedown on container (but not on buttons)
+  container.addEventListener('mousedown', function (e) {
+    if (e.target.tagName === 'BUTTON') return;
+    state.panning = true;
+    state.sx = e.clientX - state.tx;
+    state.sy = e.clientY - state.ty;
+    container.style.cursor = 'grabbing';
     e.preventDefault();
   });
 
-  document.addEventListener('mousemove', (e) => {
-    if (!isPanning) return;
-    translateX = e.clientX - startX;
-    translateY = e.clientY - startY;
-    applyTransform();
+  window.addEventListener('mousemove', function (e) {
+    if (!state.panning) return;
+    state.tx = e.clientX - state.sx;
+    state.ty = e.clientY - state.sy;
+    apply(false);
   });
 
-  document.addEventListener('mouseup', () => {
-    if (!isPanning) return;
-    isPanning = false;
-    viewport.style.cursor = 'grab';
+  window.addEventListener('mouseup', function () {
+    if (!state.panning) return;
+    state.panning = false;
+    container.style.cursor = 'grab';
   });
 
   // Touch pan
-  viewport.addEventListener(
+  container.addEventListener(
     'touchstart',
-    (e) => {
-      if (e.touches.length === 1) {
-        isPanning = true;
-        startX = e.touches[0].clientX - translateX;
-        startY = e.touches[0].clientY - translateY;
-      }
+    function (e) {
+      if (e.touches.length !== 1) return;
+      state.panning = true;
+      state.sx = e.touches[0].clientX - state.tx;
+      state.sy = e.touches[0].clientY - state.ty;
     },
     {passive: true},
   );
 
-  viewport.addEventListener(
+  container.addEventListener(
     'touchmove',
-    (e) => {
-      if (!isPanning || e.touches.length !== 1) return;
-      translateX = e.touches[0].clientX - startX;
-      translateY = e.touches[0].clientY - startY;
-      applyTransform();
+    function (e) {
+      if (!state.panning || e.touches.length !== 1) return;
+      state.tx = e.touches[0].clientX - state.sx;
+      state.ty = e.touches[0].clientY - state.sy;
+      apply(false);
     },
     {passive: true},
   );
 
-  viewport.addEventListener('touchend', () => {
-    isPanning = false;
+  container.addEventListener('touchend', function () {
+    state.panning = false;
   });
-
-  wrapper.appendChild(viewport);
-  wrapper.appendChild(controls);
-  container.appendChild(wrapper);
 }
 
-function init() {
-  // Enhance existing diagrams
-  document.querySelectorAll('.docusaurus-mermaid-container').forEach(enhanceDiagram);
-
-  // Watch for new diagrams (client-side navigation)
-  const observer = new MutationObserver(() => {
-    document
-      .querySelectorAll('.docusaurus-mermaid-container')
-      .forEach(enhanceDiagram);
-  });
-  observer.observe(document.body, {childList: true, subtree: true});
+function run() {
+  document
+    .querySelectorAll('.docusaurus-mermaid-container')
+    .forEach(enhanceDiagram);
 }
 
-// Run on page load and route changes
 if (typeof window !== 'undefined') {
+  // Initial run after page is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(run, 300);
+    });
   } else {
-    init();
+    setTimeout(run, 300);
   }
+
+  // Watch for dynamically added diagrams
+  var obs = new MutationObserver(function () {
+    run();
+  });
+  obs.observe(document.body, {childList: true, subtree: true});
 }
 
 export function onRouteDidUpdate() {
-  setTimeout(() => {
-    document
-      .querySelectorAll('.docusaurus-mermaid-container')
-      .forEach(enhanceDiagram);
-  }, 500);
+  setTimeout(run, 500);
 }
