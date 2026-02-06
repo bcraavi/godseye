@@ -24,6 +24,8 @@ const config: Config = {
     mermaid: true,
   },
 
+  clientModules: ['./src/diagram-zoom.js'],
+
   themes: ['@docusaurus/theme-mermaid'],
 
   i18n: {
