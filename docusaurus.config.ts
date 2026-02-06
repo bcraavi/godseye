@@ -11,10 +11,10 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://godseye.dev',
-  baseUrl: '/',
+  url: 'https://bcraavi.github.io',
+  baseUrl: '/godseye/',
 
-  organizationName: 'godseye',
+  organizationName: 'bcraavi',
   projectName: 'godseye',
 
   onBrokenLinks: 'warn',
