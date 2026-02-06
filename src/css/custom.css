@@ -1,0 +1,79 @@
+:root {
+  --ifm-color-primary: #6366f1;
+  --ifm-color-primary-dark: #4f46e5;
+  --ifm-color-primary-darker: #4338ca;
+  --ifm-color-primary-darkest: #3730a3;
+  --ifm-color-primary-light: #818cf8;
+  --ifm-color-primary-lighter: #a5b4fc;
+  --ifm-color-primary-lightest: #c7d2fe;
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --docusaurus-highlighted-code-line-bg: rgba(99, 102, 241, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #818cf8;
+  --ifm-color-primary-dark: #6366f1;
+  --ifm-color-primary-darker: #4f46e5;
+  --ifm-color-primary-darkest: #4338ca;
+  --ifm-color-primary-light: #a5b4fc;
+  --ifm-color-primary-lighter: #c7d2fe;
+  --ifm-color-primary-lightest: #e0e7ff;
+  --ifm-background-color: #0f0f23;
+  --ifm-background-surface-color: #1a1a2e;
+  --docusaurus-highlighted-code-line-bg: rgba(129, 140, 248, 0.15);
+}
+
+/* Mermaid diagram styling */
+.docusaurus-mermaid-container {
+  margin: 1.5rem 0;
+}
+
+[data-theme='dark'] .docusaurus-mermaid-container svg {
+  background: transparent;
+}
+
+/* Navbar styling */
+.navbar {
+  backdrop-filter: blur(12px);
+}
+
+[data-theme='dark'] .navbar {
+  background: rgba(15, 15, 35, 0.85);
+  border-bottom: 1px solid rgba(129, 140, 248, 0.1);
+}
+
+/* Sidebar category labels */
+.menu__list-item--collapsed .menu__link--sublist::after,
+.menu__link--sublist::after {
+  background-size: 1.2rem 1.2rem;
+}
+
+/* Table styling */
+table {
+  display: table;
+  width: 100%;
+}
+
+table th {
+  text-align: left;
+}
+
+[data-theme='dark'] table th {
+  background: rgba(129, 140, 248, 0.08);
+}
+
+[data-theme='dark'] table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Code blocks */
+[data-theme='dark'] pre {
+  background: #1a1a2e !important;
+  border: 1px solid rgba(129, 140, 248, 0.1);
+}
+
+/* Footer */
+.footer--dark {
+  background: #0a0a1a;
+}
