@@ -38,6 +38,8 @@ const sidebars: SidebarsConfig = {
         'ai/customer-ai',
         'ai/operations-ai',
         'ai/business-ai',
+        'ai/project-sentinels',
+        'ai/triplet-loss-architecture',
       ],
     },
     {
@@ -48,6 +50,7 @@ const sidebars: SidebarsConfig = {
         'strategy/build-vs-buy',
         'strategy/multi-cloud',
         'strategy/multi-tenant',
+        'strategy/triplet-model',
         'strategy/tech-stack',
       ],
     },

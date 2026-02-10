@@ -6,7 +6,7 @@ sidebar_label: "🕸️ AI Agent Mesh"
 
 # 🕸️ AI Agent Mesh
 
-GodsEye runs 20+ AI agents across four families. The Agent Mesh is the coordination layer that routes requests, enforces safety boundaries, manages shared memory, and selects the right LLM for every task.
+GodsEye runs 20+ AI agents across four families, plus 100-200 per-project **Sentinel Agents** that patrol individual cloud projects. The Agent Mesh is the coordination layer that routes requests, enforces safety boundaries, manages shared memory, selects the right LLM for every task, and connects the sentinel fleet via industry-standard protocols.
 
 ## Architecture Overview
 
@@ -332,3 +332,72 @@ graph LR
 ```
 
 Every cross-family call routes through the orchestrator. No direct agent-to-agent connections. The orchestrator enforces access control, rate limits, and audit logging on every hop.
+
+---
+
+## Inter-Agent Communication Protocols
+
+GodsEye adopts two industry-standard protocols for agent communication, each serving a distinct purpose.
+
+### A2A Protocol (Agent-to-Agent)
+
+Google's **Agent2Agent (A2A)** protocol -- an open standard now governed by the Linux Foundation with 150+ supporting organizations -- handles all agent-to-agent communication. A2A uses JSON-RPC 2.0 over HTTP(S) with support for synchronous, streaming (SSE), and async push notifications.
+
+**Where A2A is used in GodsEye:**
+
+| Communication | Participants | Pattern |
+|--------------|-------------|---------|
+| Cross-family agent calls | Customer AI ↔ Operations AI | Request/response via orchestrator |
+| Sentinel-to-sentinel collaboration | Sentinel mesh (100-200 agents) | Broadcast + directed messaging |
+| Sentinel-to-central-agent escalation | Sentinel → SRE/Security/Cost Agent | Task delegation with status updates |
+| Night-mode knowledge exchange | Sentinel ↔ Sentinel | Async batch messaging |
+
+Each agent publishes an **Agent Card** (JSON) that advertises capabilities, trust level, and endpoint -- enabling dynamic discovery and routing.
+
+### MCP (Model Context Protocol)
+
+Anthropic's **Model Context Protocol (MCP)** -- now with 97M+ monthly SDK downloads and backed by Anthropic, OpenAI, Google, and Microsoft via the Linux Foundation -- handles all agent-to-tool communication.
+
+**Where MCP is used in GodsEye:**
+
+| MCP Server | Used By | Purpose |
+|------------|---------|---------|
+| `mcp-kubernetes` | SRE Agent, Sentinels | Pod management, scaling, rollbacks |
+| `mcp-terraform` | Deployment Agent, Sentinels | IaC drift detection, state inspection |
+| `mcp-vault` | Security Agent, Sentinels | Credential rotation, secret management |
+| `mcp-prometheus` | All Operations AI, Sentinels | Metrics queries, threshold checks |
+| `mcp-cloud-provider` | Cost Agent, Sentinels | Resource management, billing data |
+| `mcp-security-scanner` | Security Agent, Sentinels | CVE lookup, IAM audit |
+| `mcp-neo4j` | All agents | Knowledge Graph read/write |
+
+### Protocol Boundary
+
+```
+A2A = Agent talks to Agent (coordination, negotiation, knowledge sharing)
+MCP = Agent talks to Tool (infrastructure, databases, APIs, cloud services)
+```
+
+The orchestrator bridges both: it uses A2A to route inter-agent calls and MCP to expose shared tools to all agents.
+
+---
+
+## Sentinel Mesh
+
+The Sentinel Mesh is a sub-network within the Agent Mesh, consisting of 100-200 per-project sentinel agents that operate with day/night duty cycles. See **[Project Sentinel Agents](./project-sentinels)** for full architecture.
+
+### Sentinel Mesh Topology
+
+Sentinels use a **federated peer-to-peer** model (not hub-and-spoke):
+- **Day mode**: Sentinels operate independently within their project, reporting to the central orchestrator for cross-project escalations
+- **Night mode**: Sentinels form ad-hoc collaboration groups via A2A, sharing learnings and coordinating improvements
+- **Shared Knowledge Graph**: All sentinels read from and write to a federated knowledge layer with access controls
+
+### Integration Points
+
+| Central Agent | Sentinel Interaction |
+|--------------|---------------------|
+| Agent Orchestrator | Sentinels register via Agent Cards, receive cross-project directives |
+| Knowledge Graph | Sentinels contribute per-project observations, consume cross-project patterns |
+| LLM Gateway | Sentinels use tiered model selection (Haiku for patrol, Sonnet for analysis, Opus for reasoning) |
+| Audit Log | Every sentinel action logged with project, phase, trust level, and outcome |
+| Kill Switch | Sentinel-level kill switch (L1) + project-level (L2) + action-level (L3) |

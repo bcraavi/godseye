@@ -6,7 +6,7 @@ sidebar_label: "☁️ Multi-Cloud Strategy"
 
 # ☁️ Multi-Cloud Strategy
 
-> **The Flutter Model:** Like Flutter compiles one codebase to iOS and Android, GodsEye deploys critical services natively to AWS, GCP, **and** Azure simultaneously. If any single cloud has a catastrophic failure, stores stay open.
+> **The Triplet Model:** GodsEye runs on AWS (primary), GCP (secondary), and Azure (tertiary) — three clouds, zero data centers. Every layer of the stack — infrastructure, development, data, AI, and operations — is distributed across this triangle. See [Triplet Model Strategy](./triplet-model.md) for the full methodology.
 
 ---
 

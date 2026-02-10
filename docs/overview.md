@@ -6,7 +6,7 @@ sidebar_label: "🔭 GodsEye Platform Architecture"
 
 # 🔭 GodsEye Platform Architecture
 
-GodsEye is the complete AI-first technology spine for mid-market retail ($1-50B revenue). One platform replaces your entire vendor stack -- ERP, commerce, CRM, observability, consulting, and infrastructure -- with 36 integrated components, 20+ AI agents, and multi-cloud resilience across AWS, GCP, and Azure.
+GodsEye is the complete AI-first technology spine for mid-market retail ($1-50B revenue). One platform replaces your entire vendor stack -- ERP, commerce, CRM, observability, consulting, and infrastructure -- with 36 integrated components, 22+ central AI agents, 100-200 per-project Sentinel agents, and multi-cloud resilience across AWS, GCP, and Azure.
 
 ## 🏗️ Platform Stack
 
@@ -124,13 +124,15 @@ block-beta
 | Metric | Value |
 |---|---|
 | Total Components | 36 |
-| AI Agents | 20+ |
+| Central AI Agents | 22+ (across 4 families) |
+| Project Sentinel Agents | 100-200 (one per cloud project) |
 | Cloud Providers | 3 (AWS, GCP, Azure) |
 | Offline POS Capability | 72 hours |
 | Target Market | Mid-market retail, $1-50B revenue |
 | Tier 1 Availability Target | 99.999% |
 | Max Failover Time (Tier 1) | < 30 seconds |
 | Recovery Time (Tier 3) | < 4 hours |
+| Sentinel Phases | 4 (Shadow Observer → Guided Assistant → Autonomous Operator → Predictive Guardian) |
 
 ## 🔄 What GodsEye Replaces
 
@@ -156,3 +158,4 @@ block-beta
 3. **Offline-first POS** -- Stores operate fully for 72 hours without connectivity; sync reconciles automatically.
 4. **Zero-vendor-lock** -- Every component is platform-owned. No third-party SaaS in the critical path.
 5. **Event-driven** -- All cross-layer communication flows through the event bus with guaranteed delivery.
+6. **Sentinel-per-project** -- Every cloud project gets its own AI sentinel that patrols 24/7, reports daily to engineers, and collaborates with peer sentinels at night.

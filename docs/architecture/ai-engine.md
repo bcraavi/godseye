@@ -5,7 +5,7 @@ sidebar_label: "🧠 AI & Intelligence Engine"
 
 # 🧠 Layer 3 — AI & Intelligence Engine
 
-GodsEye AI layer: 20+ autonomous agents across 4 families, unified by a shared Knowledge Graph and multi-provider LLM Gateway. Every agent decision is auditable. Trust levels gate what actions agents can take without human approval.
+GodsEye AI layer: 22+ central autonomous agents across 4 families, plus a fleet of 100-200 per-project **Sentinel Agents** -- unified by a shared Knowledge Graph, multi-provider LLM Gateway, and inter-agent communication via A2A and MCP protocols. Every agent decision is auditable. Trust levels gate what actions agents can take without human approval.
 
 ---
 

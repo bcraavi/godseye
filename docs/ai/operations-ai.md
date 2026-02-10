@@ -6,7 +6,7 @@ sidebar_label: "⚡ Operations AI Agents"
 
 # ⚡ Operations AI Agents
 
-Five autonomous agents that keep GodsEye running 24/7 across all clouds, all channels, all stores. They monitor, deploy, secure, optimize data pipelines, and control cloud spend -- without waiting for humans.
+Six autonomous agents that keep GodsEye running 24/7 across all clouds, all channels, all stores. Five central agents handle platform-wide operations, plus a fleet of **Project Sentinel Agents** -- one per cloud project -- that patrol individual projects 24/7 with day/night duty cycles.
 
 ---
 
@@ -19,10 +19,11 @@ Five autonomous agents that keep GodsEye running 24/7 across all clouds, all cha
 | 3 | Security Agent | L2 AUTO-FIX | PCI-DSS, credential rotation, supply chain, exfiltration | 0 unpatched critical CVEs > 24h |
 | 4 | Data Agent | L1 SUGGEST | Pipeline health, schema drift, PII, query performance | < 5 min data freshness SLA |
 | 5 | Cost Agent | L1 SUGGEST | Multi-cloud spend, right-sizing, reserved/spot, egress | 30% YoY cost reduction target |
+| 6 | Project Sentinel Fleet | L0→L3 PHASED | Per-project health, security, cost, data -- day/night cycles | 100% project coverage, health score > 90 |
 
 ---
 
-## All 5 Agents -- Interaction Topology
+## All 6 Agents -- Interaction Topology
 
 ```mermaid
 graph TD
@@ -32,6 +33,12 @@ graph TD
         SEC[Security Agent]
         DATA[Data Agent]
         COST[Cost Agent]
+    end
+
+    subgraph Sentinels["Project Sentinel Fleet (100-200)"]
+        S1["Sentinel\npayments-prod"]
+        S2["Sentinel\ncatalog-api"]
+        SN["Sentinel\n...N projects"]
     end
 
     KG[(Knowledge Graph)]
@@ -66,6 +73,14 @@ graph TD
     SEC -->|anomalous queries| DATA
     COST -->|right-sizing actions| SRE
     DATA -->|schema changes| DEPLOY
+
+    S1 -->|escalate incidents| SRE
+    S1 -->|security findings| SEC
+    S1 -->|cost anomalies| COST
+    S2 -->|pipeline issues| DATA
+    S2 -->|deploy health| DEPLOY
+    SN -.->|A2A protocol| S1
+    SN -.->|A2A protocol| S2
 
     SRE --> K8S
     DEPLOY --> CI
@@ -462,6 +477,62 @@ flowchart TD
 
 ---
 
+## 6. Project Sentinel Fleet
+
+One sentinel per cloud project. Each sentinel inhabits its assigned project, crawling through every resource, configuration, and permission boundary. Sentinels operate in day/night duty cycles and collaborate via the A2A protocol. See **[Project Sentinel Agents](./project-sentinels)** for the full architecture, phased rollout plan, and daily digest format.
+
+### Sentinel ↔ Central Agent Integration
+
+```mermaid
+sequenceDiagram
+    participant S as Sentinel: payments-prod
+    participant ORCH as Agent Orchestrator
+    participant SRE as SRE Agent
+    participant SEC as Security Agent
+    participant COST as Cost Agent
+    participant KG as Knowledge Graph
+
+    Note over S: Day Mode: Patrol Cycle
+
+    S->>S: Scan all 6 domains (compute, network, storage, IAM, data, cost)
+    S->>KG: Write: 47 observations, 3 warnings, 0 critical
+
+    S->>S: Detect: service account with unused admin permissions
+    S->>ORCH: Escalate: security finding (cross-project relevance)
+    ORCH->>SEC: Route: IAM finding from sentinel-payments-prod
+    SEC->>SEC: Correlate with org-wide IAM audit
+    SEC-->>S: Acknowledged: added to org-wide remediation queue
+
+    S->>S: Detect: cost anomaly ($200/day spike on unused GPU instances)
+    S->>ORCH: Escalate: cost finding
+    ORCH->>COST: Route: cost anomaly from sentinel-payments-prod
+    COST-->>S: Confirmed: flagged for right-sizing
+
+    Note over S: End of Day: Generate Digest
+    S->>S: Compile daily digest for payments-team@
+```
+
+### Phased Rollout Summary
+
+| Phase | Trust Level | Duration | Key Capability | Graduation Gate |
+|-------|-------------|----------|----------------|-----------------|
+| 1: Shadow Observer | L0 | Days 1-30 | Read-only monitoring, baseline building | Accuracy > 90%, engineer sign-off |
+| 2: Guided Assistant | L1 | Days 31-120 | Propose actions, create tickets, draft runbooks | 70%+ suggestions accepted, 0 critical errors |
+| 3: Autonomous Operator | L2 | Days 121-300 | Auto-remediate, fix on request, share playbooks | 99%+ accuracy, 0 incidents, board approval |
+| 4: Predictive Guardian | L3 | Day 301+ | Predict issues, block risks, mentor new sentinels | Continuous 99%+ accuracy, quarterly review |
+
+### Fleet Scaling
+
+| Metric | Value |
+|--------|-------|
+| Sentinels per org | 100-200 (one per cloud project) |
+| Resource footprint | ~256MB RAM, 0.25 vCPU per sentinel |
+| LLM cost | $2-5/day per sentinel (tiered: Haiku → Sonnet → Opus) |
+| Rollout pace | 5 projects initially, +10-20/month, full coverage in 6-12 months |
+| Night-mode A2A traffic | < 100 messages per sentinel per night |
+
+---
+
 ## Cross-Agent Workflow: Black Friday Preparation
 
 ```mermaid
@@ -519,3 +590,4 @@ sequenceDiagram
 | Security Agent | < 1s threat detection | < 10s for blocking actions | Any PCI-DSS violation | Immutable audit log, 7-year retention |
 | Data Agent | < 1 min freshness check | < 5 min pipeline repair | Data freshness > 3x SLA | Pipeline lineage tracked end-to-end |
 | Cost Agent | < 5 min anomaly detection | < 1h for safe optimizations | Spend anomaly > $1000 | All changes tracked with cost impact |
+| Sentinel Fleet | < 10s patrol cycle | < 60s for known patterns (L2+) | Unresponsive > 5 min | Every action logged to Knowledge Graph + daily digest |
