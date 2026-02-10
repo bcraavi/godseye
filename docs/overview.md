@@ -133,6 +133,9 @@ block-beta
 | Max Failover Time (Tier 1) | < 30 seconds |
 | Recovery Time (Tier 3) | < 4 hours |
 | Sentinel Phases | 4 (Shadow Observer → Guided Assistant → Autonomous Operator → Predictive Guardian) |
+| License | BSL 1.1 (converts to Apache 2.0 after 4 years) |
+| Pricing Tiers | 3 (Free / Team $8/user/mo / Enterprise $20/user/mo) |
+| Cloud Distribution | Equal — 33% AWS / 33% GCP / 34% Azure |
 
 ## 🔄 What GodsEye Replaces
 
@@ -159,3 +162,4 @@ block-beta
 4. **Zero-vendor-lock** -- Every component is platform-owned. No third-party SaaS in the critical path.
 5. **Event-driven** -- All cross-layer communication flows through the event bus with guaranteed delivery.
 6. **Sentinel-per-project** -- Every cloud project gets its own AI sentinel that patrols 24/7, reports daily to engineers, and collaborates with peer sentinels at night.
+7. **Open-core** -- Source code is BSL 1.1 licensed, free to self-host. Revenue comes from [managed hosting, enterprise features, and support](./strategy/open-core.md) — not from restricting code access.

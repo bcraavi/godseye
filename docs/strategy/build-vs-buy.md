@@ -8,7 +8,7 @@ sidebar_label: "🔨 Build vs Buy Strategy"
 
 > **Core Principle:** Start with third-party dependencies, gradually decouple and build our own services.
 
-GodsEye does not attempt to replace everything on day one. The strategy is to **augment existing Oracle/SAP/Salesforce installations first** (prove value as an intelligent overlay), then **gradually replace** modules when GodsEye-native alternatives are production-hardened.
+GodsEye does not attempt to replace everything on day one. The strategy is to **augment existing Oracle/SAP/Salesforce installations first** (prove value as an intelligent overlay), then **gradually replace** modules when GodsEye-native alternatives are production-hardened. This migration path aligns with the [Open-Core monetization strategy](./open-core.md) — Phase 1 revenue funds Phase 2 engineering, and community contributors accelerate Phase 3.
 
 ---
 

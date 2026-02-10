@@ -87,16 +87,14 @@ graph TB
 - Developer scorecards (DORA metrics, security posture, documentation coverage)
 - AI-powered code assistant integrated into IDE and portal
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| Service catalog | AI code assistant |
-| Basic scaffolding templates | Custom template builder |
-| Documentation wiki | SSO / RBAC integration |
-| Environment list view | Self-service environment provisioning |
-| | Developer scorecards & DORA dashboards |
-| | Audit log |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| Service catalog | SSO integration | AI code assistant |
+| Basic scaffolding templates | Self-service environment provisioning | Custom template builder |
+| Documentation wiki | Basic developer scorecards | Full DORA dashboards |
+| Environment list view | | Audit log |
 
 ---
 
@@ -114,16 +112,16 @@ graph TB
 - Custom dashboards with drag-and-drop builder
 - SLO tracking with burn-rate alerts
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| Metrics + logs + traces ingestion | AI anomaly detection |
-| Basic dashboards | Predictive alerting |
-| OpenTelemetry collector | Cross-cloud correlated views |
-| 7-day retention | Custom retention policies (up to 13 months) |
-| | Continuous profiling |
-| | SLO burn-rate automation |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| Metrics + logs + traces ingestion | Custom dashboards | AI anomaly detection |
+| Basic dashboards | 90-day retention | Predictive alerting |
+| OpenTelemetry collector | SLO tracking | Cross-cloud correlated views |
+| 7-day retention | | 13-month retention |
+| | | Continuous profiling |
+| | | SLO burn-rate automation |
 
 ---
 
@@ -141,16 +139,15 @@ graph TB
 - Post-mortem generation with action item tracking
 - On-call scheduling with fair rotation algorithms
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| Alert routing and escalation | AI root cause analysis |
-| On-call scheduling | Automated remediation playbooks |
-| Basic incident timeline | Business impact scoring |
-| Manual post-mortems | AI-generated post-mortems |
-| | Multi-team war rooms |
-| | SLA compliance tracking |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| Alert routing and escalation | Multi-team war rooms | AI root cause analysis |
+| On-call scheduling | Basic remediation playbooks | Automated remediation playbooks |
+| Basic incident timeline | | Business impact scoring |
+| Manual post-mortems | | AI-generated post-mortems |
+| | | SLA compliance tracking |
 
 ---
 
@@ -168,16 +165,15 @@ graph TB
 - Automated rollback on SLO breach
 - Build caching and hermetic builds (Bazel-compatible)
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| GitOps deployment (single cloud) | Multi-cloud orchestration |
-| Basic canary deployments | Advanced progressive delivery |
-| Manual rollback | Automated SLO-breach rollback |
-| Environment promotion | Feature flag management |
-| | Build performance analytics |
-| | Compliance gates (SOX, PCI) |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| GitOps deployment (single cloud) | Multi-cloud deployment (2 clouds) | Full triplet orchestration (3 clouds) |
+| Basic canary deployments | Feature flag management | Advanced progressive delivery |
+| Manual rollback | Environment promotion | Automated SLO-breach rollback |
+| | | Build performance analytics |
+| | | Compliance gates (SOX, PCI) |
 
 ---
 
@@ -195,16 +191,15 @@ graph TB
 - PCI-DSS, SOC2, HIPAA compliance automation
 - Secret scanning with auto-rotation
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| SAST scanning | DAST + IAST |
-| Basic dependency audit | Full SCA with license compliance |
-| Container image scanning | Runtime threat detection |
-| OPA policy engine | Compliance dashboard (PCI, SOC2) |
-| | Secret auto-rotation |
-| | SBOM management & export |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| SAST scanning | DAST scanning | IAST (interactive) |
+| Basic dependency audit | Runtime threat detection | Full SCA with license compliance |
+| Container image scanning | | Compliance dashboard (PCI, SOC2) |
+| OPA policy engine | | Secret auto-rotation |
+| | | SBOM management & export |
 
 ---
 
@@ -222,16 +217,13 @@ graph TB
 - End-to-end data lineage tracking
 - CDC (Change Data Capture) from all GodsEye databases
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| Basic DAG orchestration | Visual pipeline builder |
-| Kafka consumer/producer | Managed Flink / Spark |
-| Schema registry | Cross-cloud data sync |
-| | Data quality gates |
-| | Lineage tracking |
-| | CDC connectors |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| Basic DAG orchestration | Visual pipeline builder | Managed Flink / Spark |
+| Kafka consumer/producer | CDC connectors | Cross-cloud data sync |
+| Schema registry | Data quality gates | Lineage tracking |
 
 ---
 
@@ -249,16 +241,14 @@ graph TB
 - Semantic layer with business metric definitions
 - Export to Excel, PDF, Slack, and scheduled email
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| Pre-built retail dashboards | Custom dashboard builder |
-| SQL query interface | Natural language queries (AI) |
-| CSV export | Embedded analytics SDK |
-| Basic charts | AI-generated insights |
-| | Semantic layer management |
-| | Scheduled reports |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| Pre-built retail dashboards | Custom dashboard builder | Natural language queries (AI) |
+| SQL query interface | Scheduled reports | Embedded analytics SDK |
+| CSV export | | AI-generated insights |
+| Basic charts | | Semantic layer management |
 
 ---
 
@@ -276,16 +266,14 @@ graph TB
 - Barcode / QR / NFC scanning SDK
 - Store associate task management framework
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| Flutter app templates | Custom app builder |
-| Basic offline sync | Advanced conflict resolution |
-| Push notifications | Segmented push with A/B testing |
-| Barcode scanning | NFC + RFID integration |
-| | MDM integration |
-| | App analytics |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| Flutter app templates | Segmented push with A/B testing | Custom app builder |
+| Basic offline sync | App analytics | Advanced conflict resolution |
+| Push notifications | | NFC + RFID integration |
+| Barcode scanning | | MDM integration |
 
 ---
 
@@ -303,16 +291,15 @@ graph TB
 - API versioning with automatic deprecation warnings
 - Integration monitoring with SLA tracking
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| API gateway (rate limit, auth) | Advanced transformation rules |
-| 10 pre-built connectors | 50+ connectors + custom builder |
-| REST API management | GraphQL federation |
-| Basic webhook support | Webhook retry + DLQ |
-| | API monetization |
-| | Integration SLA tracking |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| API gateway (rate limit, auth) | 30 pre-built connectors | 50+ connectors + custom builder |
+| 10 pre-built connectors | Webhook retry + DLQ | GraphQL federation |
+| REST API management | | Advanced transformation rules |
+| Basic webhook support | | API monetization |
+| | | Integration SLA tracking |
 
 ---
 
@@ -330,16 +317,14 @@ graph TB
 - Drift detection and auto-remediation
 - FinOps dashboards with optimization recommendations
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| Basic cost visibility | Full chargeback / showback |
-| Resource quotas | Cross-cloud quota federation |
-| Tag policy linting | Auto-remediation |
-| | FinOps optimization engine |
-| | Drift detection |
-| | Approval workflows |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| Basic cost visibility | Cross-cloud quota federation | Full chargeback / showback |
+| Resource quotas | Drift detection | FinOps optimization engine |
+| Tag policy linting | | Auto-remediation |
+| | | Approval workflows |
 
 ---
 
@@ -357,16 +342,15 @@ graph TB
 - Usage analytics (which templates are most adopted)
 - Dependency impact analysis ("what breaks if we update this library?")
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| Template catalog | Review and approval workflows |
-| Helm chart repository | Usage analytics |
-| Basic library listing | Dependency impact analysis |
-| | Automated compliance checks on listings |
-| | Private marketplace for org-specific assets |
-| | Version pinning with auto-upgrade proposals |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| Template catalog | Usage analytics | Review and approval workflows |
+| Helm chart repository | Version pinning | Dependency impact analysis |
+| Basic library listing | | Automated compliance checks |
+| | | Private marketplace for org-specific assets |
+| | | Auto-upgrade proposals |
 
 ---
 
@@ -384,16 +368,14 @@ graph TB
 - Plugin versioning with backward compatibility guarantees
 - Marketplace publishing pipeline with automated review
 
-**Open-Core Split:**
+**Open-Core Split:** *([Full pricing details](../strategy/open-core.md))*
 
-| Community | Enterprise |
-|-----------|-----------|
-| Plugin SDK (TypeScript) | Python SDK |
-| Basic event hooks | Full event hook catalog |
-| CLI-based development | Visual plugin builder |
-| | WASM runtime |
-| | Private plugin registry |
-| | UI extension points |
+| Free | Team ($8/user/mo) | Enterprise ($20/user/mo) |
+|------|-------------------|--------------------------|
+| Plugin SDK (TypeScript) | Python SDK | Visual plugin builder |
+| Basic event hooks | Full event hook catalog | WASM runtime |
+| CLI-based development | | Private plugin registry |
+| | | UI extension points |
 
 ---
 

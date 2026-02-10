@@ -52,6 +52,8 @@ const sidebars: SidebarsConfig = {
         'strategy/multi-tenant',
         'strategy/triplet-model',
         'strategy/tech-stack',
+        'strategy/open-core',
+        'strategy/community',
       ],
     },
   ],

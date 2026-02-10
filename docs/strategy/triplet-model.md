@@ -8,7 +8,7 @@ sidebar_label: "🔺 Triplet Model"
 
 > **Three clouds. Zero data centers. One unified methodology for development, deployment, data, and AI.**
 
-Inspired by Walmart's Triplet Model but adapted for a **cloud-only** approach — GodsEye runs every layer of its stack across **AWS (primary), GCP (secondary), and Azure (tertiary)** with no private infrastructure. The three clouds form a triangle of redundancy, cost competition, and best-of-breed service selection.
+Inspired by Walmart's Triplet Model but adapted for a **cloud-only** approach — GodsEye runs every layer of its stack **equally** across **AWS, GCP, and Azure** with no private infrastructure. No cloud is primary — each is an equal partner at **33%** of workloads. The three clouds form a triangle of redundancy, cost competition, and best-of-breed service selection. See [Open-Core Strategy](./open-core.md) for how GodsEye Cloud customers choose their preferred cloud.
 
 ---
 
@@ -31,9 +31,9 @@ Inspired by Walmart's Triplet Model but adapted for a **cloud-only** approach �
 ```mermaid
 graph TD
     subgraph TripletModel["🔺 GodsEye Triplet Model"]
-        AWS["☁️ AWS\n(Primary — 60%)\n\nTraining & Compute\nEvent Streaming\nPrimary Databases\nCI Build Runners"]
-        GCP["☁️ GCP\n(Secondary — 25%)\n\nAnalytics & BI\nAI Evaluation\nSearch & ML Serving\nDev Environments"]
-        AZURE["☁️ Azure\n(Tertiary — 15%)\n\nIdentity & Compliance\nDisaster Recovery\nEnterprise Integrations\nEdge / IoT"]
+        AWS["☁️ AWS\n(Equal Partner — 33%)\n\nStreaming & Events\nOLTP Databases\nCI Build + SAST\nML Training (rotation)"]
+        GCP["☁️ GCP\n(Equal Partner — 33%)\n\nAnalytics & BI\nML Training (rotation)\nSearch & Serving\nDev Environments"]
+        AZURE["☁️ Azure\n(Equal Partner — 34%)\n\nIdentity & Compliance\nEnterprise Integrations\nCI Build + Container Scan\nML Training (rotation)"]
     end
 
     AWS <-->|"Cross-cloud mesh\nConsul + Istio\nmTLS encrypted"| GCP
@@ -47,30 +47,31 @@ graph TD
 
 ### Cloud Role Assignment — All 5 Layers
 
-| Layer | Concern | AWS (Primary) | GCP (Secondary) | Azure (Tertiary) |
-|-------|---------|---------------|-----------------|------------------|
-| **L1 Infra** | Compute (K8s) | EKS — US-East, US-West | GKE — US-Central, EU-West | AKS — APAC, DR |
+| Layer | Concern | AWS (33%) | GCP (33%) | Azure (34%) |
+|-------|---------|-----------|-----------|-------------|
+| **L1 Infra** | Compute (K8s) | EKS — US-East | GKE — US-Central, EU-West | AKS — US-West, APAC |
 | **L1 Infra** | Database | Aurora PostgreSQL | Cloud Spanner | Cosmos DB (PG wire) |
-| **L1 Infra** | Object Storage | S3 (source of truth) | GCS (replicated) | Blob (replicated, cold) |
+| **L1 Infra** | Object Storage | S3 | GCS | Azure Blob |
 | **L1 Infra** | Streaming | MSK (Kafka) | Pub/Sub + Kafka bridge | Event Hubs (Kafka protocol) |
-| **L1 Infra** | CDN | CloudFront (backup) | Cloud CDN (backup) | Azure CDN (backup) |
-| **L2 Platform** | CI Runners | CodeBuild (build) | Cloud Build (build) | — |
+| **L1 Infra** | CDN | CloudFront | Cloud CDN | Azure CDN |
+| **L2 Platform** | CI Runners | CodeBuild (build + SAST) | Cloud Build (integration tests) | Azure Pipelines (container scan) |
 | **L2 Platform** | CD / GitOps | ArgoCD on EKS | ArgoCD on GKE | ArgoCD on AKS |
-| **L2 Platform** | Dev Environments | — | Cloud Workstations | — |
+| **L2 Platform** | Dev Environments | Cloud9 | Cloud Workstations | VS Code Dev Containers |
 | **L2 Platform** | Observability | CloudWatch (infra) | Cloud Monitoring (infra) | Azure Monitor (infra) |
-| **L2 Platform** | Unified Observability | Prometheus + Grafana (cross-cloud) | — | — |
-| **L2 Platform** | Secrets | — | — | — |
-| **L2 Platform** | Secrets (unified) | HashiCorp Vault (cross-cloud) | — | — |
-| **L3 AI** | ML Training | SageMaker (full runs) | Vertex AI (eval/validation) | Azure ML (DR retrain) |
+| **L2 Platform** | Unified Observability | Prometheus + Grafana (cross-cloud, multi-region) | Grafana DR replica | — |
+| **L2 Platform** | Secrets | HashiCorp Vault (cross-cloud) | — | — |
+| **L3 AI** | ML Training | SageMaker (rotation) | Vertex AI (rotation) | Azure ML (rotation) |
 | **L3 AI** | LLM Inference | Bedrock (Claude) | Vertex AI (Gemini) | Azure OpenAI (GPT) |
 | **L3 AI** | Vector DB | Pinecone (managed) | Weaviate on GKE | Weaviate on AKS |
-| **L3 AI** | Analytics / BI | — | BigQuery + Looker | — |
-| **L4 Business** | Pricing Engine | EKS | GKE (failover) | — |
-| **L4 Business** | Fraud Detection | EKS | GKE (failover) | — |
+| **L3 AI** | Analytics / BI | — | BigQuery + Looker | Azure Synapse |
+| **L4 Business** | Pricing Engine | EKS | GKE | AKS (failover) |
+| **L4 Business** | Fraud Detection | EKS | GKE (failover) | AKS (failover) |
 | **L4 Business** | ERP Integration | — | — | Azure Logic Apps |
 | **L5 Customer** | Storefront | EKS + CloudFront | GKE + Cloud CDN | AKS + Azure CDN |
 | **L5 Customer** | POS | EKS | GKE | AKS |
-| **L5 Customer** | Identity | Cognito (user pools) | — | Entra ID (enterprise SSO) |
+| **L5 Customer** | Identity | Cognito (user pools) | Firebase Auth | Entra ID (enterprise SSO) |
+
+> **ML Training rotation**: Training runs are distributed round-robin across all 3 clouds. Each cloud gets ~33% of GPU training hours. The champion model is synced to all 3 model registries.
 
 ---
 
@@ -134,11 +135,11 @@ flowchart TD
 
 | Stage | AWS | GCP | Azure | Why Split? |
 |-------|-----|-----|-------|------------|
-| **Build** | CodeBuild (primary runners) | Cloud Build (secondary runners) | — | Two build clouds = no CI downtime if one cloud fails |
-| **Unit Tests** | Run on CodeBuild | — | — | Fast, single-cloud is fine |
-| **Integration Tests** | — | Run on Cloud Build | — | Different cloud catches cloud-specific assumptions |
+| **Build** | CodeBuild | Cloud Build | Azure Pipelines | Three build clouds = CI never goes down |
+| **Unit Tests** | Run on CodeBuild | — | — | Fast, single-cloud is sufficient |
+| **Integration Tests** | — | Run on Cloud Build | Run on Azure Pipelines | Two clouds catch cloud-specific assumptions |
 | **SAST / SCA** | CodeBuild + Snyk | — | — | Security scans during build |
-| **Container Scan** | — | Cloud Build + Trivy | — | Independent scan on independent build |
+| **Container Scan** | — | Cloud Build + Trivy | Azure Pipelines + Trivy | Independent scans on independent builds |
 | **Staging Deploy** | EKS staging cluster | GKE staging cluster | AKS staging cluster | All 3 clouds — catch cloud-specific bugs |
 | **Smoke Tests** | Cross-cloud test suite runs against all 3 staging envs | — | — | Validate consistency across clouds |
 | **Prod Deploy** | ArgoCD → EKS | ArgoCD → GKE | ArgoCD → AKS | GitOps sync, identical manifests |
@@ -291,16 +292,16 @@ flowchart TD
 
 ### ML Workload Distribution
 
-| ML Workload | AWS | GCP | Azure | Split Rationale |
-|-------------|-----|-----|-------|-----------------|
-| **Model Training** (GPU heavy) | SageMaker — 70% of training | Vertex AI — 20% (validation) | Azure ML — 10% (DR) | AWS has best GPU availability + spot pricing |
-| **Feature Store** | — | Vertex AI Feature Store | — | Tight BigQuery integration for feature engineering |
-| **Experiment Tracking** | SageMaker Experiments (primary) | Vertex AI Experiments (synced) | MLflow on AKS (backup) | Source of truth on AWS, visibility on GCP |
-| **Model Serving** | Triton on EKS (US-East/West) | Triton on GKE (US-Central/EU) | Triton on AKS (APAC/DR) | Latency: serve from nearest cloud |
-| **Batch Inference** | SageMaker Batch Transform | Vertex AI Batch Prediction | — | Large-scale offline scoring |
+| ML Workload | AWS (33%) | GCP (33%) | Azure (34%) | Split Rationale |
+|-------------|-----------|-----------|-------------|-----------------|
+| **Model Training** (GPU heavy) | SageMaker — 33% (rotation) | Vertex AI — 33% (rotation) | Azure ML — 34% (rotation) | Round-robin training across all 3, best spot pricing wins |
+| **Feature Store** | SageMaker Feature Store | Vertex AI Feature Store | Azure ML Feature Store | Each cloud serves its own region |
+| **Experiment Tracking** | SageMaker Experiments | Vertex AI Experiments | MLflow on AKS | All synced to unified MLflow dashboard |
+| **Model Serving** | Triton on EKS (US-East) | Triton on GKE (US-Central/EU) | Triton on AKS (US-West/APAC) | Latency: serve from nearest cloud |
+| **Batch Inference** | SageMaker Batch Transform | Vertex AI Batch Prediction | Azure ML Batch Endpoints | Distributed across clouds |
 | **LLM Calls** | Bedrock (Claude) | Vertex AI (Gemini) | Azure OpenAI (GPT) | Best model per task, failover chain |
-| **Vector Search** | Pinecone (primary) | Weaviate on GKE (replica) | Weaviate on AKS (replica) | Managed primary, self-hosted replicas |
-| **Data Labeling** | SageMaker Ground Truth | — | — | Best labeling workforce integration |
+| **Vector Search** | Pinecone (managed) | Weaviate on GKE | Weaviate on AKS | Pinecone primary, Weaviate replicas |
+| **Data Labeling** | SageMaker Ground Truth | Vertex AI Data Labeling | — | Split labeling workload across 2 clouds |
 
 > For detailed embedding model architecture see [Triplet Loss Embeddings](../ai/triplet-loss-architecture.md).
 
@@ -448,23 +449,23 @@ flowchart TD
 
 ### Monthly Cost Breakdown (Estimated)
 
-| Category | AWS (60%) | GCP (25%) | Azure (15%) | Total |
+| Category | AWS (33%) | GCP (33%) | Azure (34%) | Total |
 |----------|-----------|-----------|-------------|-------|
-| Compute (K8s) | $45,000 | $18,000 | $12,000 | $75,000 |
-| Database | $22,000 | $8,000 | $5,000 | $35,000 |
-| Storage | $8,000 | $4,000 | $3,000 | $15,000 |
-| ML/AI Training | $12,000 | $4,000 | $1,500 | $17,500 |
-| ML/AI Inference | $8,500 | $3,200 | $2,000 | $13,700 |
-| LLM API Calls | $6,000 | $3,000 | $2,000 | $11,000 |
-| Streaming (Kafka) | $5,000 | $2,000 | $1,000 | $8,000 |
-| CDN / Egress | $4,000 | $2,000 | $1,000 | $7,000 |
-| Observability | $3,000 | $1,000 | $500 | $4,500 |
-| CI/CD | $2,500 | $1,500 | — | $4,000 |
-| Secrets / IAM | $500 | $200 | $300 | $1,000 |
+| Compute (K8s) | $25,000 | $25,000 | $25,000 | $75,000 |
+| Database | $12,000 | $12,000 | $11,000 | $35,000 |
+| Storage | $5,000 | $5,000 | $5,000 | $15,000 |
+| ML/AI Training | $6,000 | $6,000 | $5,500 | $17,500 |
+| ML/AI Inference | $4,500 | $4,700 | $4,500 | $13,700 |
+| LLM API Calls | $3,700 | $3,700 | $3,600 | $11,000 |
+| Streaming (Kafka) | $2,700 | $2,700 | $2,600 | $8,000 |
+| CDN / Egress | $2,300 | $2,400 | $2,300 | $7,000 |
+| Observability | $1,500 | $1,500 | $1,500 | $4,500 |
+| CI/CD | $1,300 | $1,400 | $1,300 | $4,000 |
+| Secrets / IAM | $300 | $400 | $300 | $1,000 |
 | Cross-cloud data transfer | — | — | — | $3,000 |
-| **Total** | **$116,500** | **$46,900** | **$28,300** | **$194,700** |
+| **Total** | **$64,300** | **$64,800** | **$62,600** | **$194,700** |
 
-> **vs. Single Cloud estimate:** ~$155,000/mo. Triplet overhead is ~1.25x, not 3x, because workloads are **distributed** (not triplicated). Only Tier 1 critical services run on all 3.
+> **vs. Single Cloud estimate:** ~$155,000/mo. Triplet overhead is ~1.25x, not 3x, because workloads are **distributed** (not triplicated). Only Tier 1 critical services run on all 3. Equal distribution maximizes vendor leverage — annual pricing reviews pit all 3 providers against each other.
 
 ---
 
@@ -531,6 +532,7 @@ flowchart TD
 5. **Data has one home.** Every data domain has a write-home cloud. Others get read replicas.
 6. **Test on all three.** Every PR runs integration tests on all 3 clouds. Cloud-specific bugs die in CI.
 7. **Fail gracefully.** Losing any single cloud = graceful degradation, never total outage.
-8. **Compete your vendors.** Annual pricing reviews across all 3. Shift workloads to cheapest provider.
+8. **Equal partners, not primary/secondary.** No cloud gets more than 34% of workloads. Compete all 3 annually.
 9. **Egress is the enemy.** Minimize cross-cloud data transfer. Place compute near data.
 10. **No cloud-native lock-in.** Every managed service has an OSS abstraction in front of it.
+11. **Customer chooses their cloud.** GodsEye Cloud tenants deploy on their preferred provider. See [Open-Core Strategy](./open-core.md).

@@ -7,7 +7,7 @@ sidebar_label: "☁️ Multi-Cloud Infrastructure"
 
 > **The Triplet Model -- Three Clouds, Zero Data Centers, Never Go Down.** See [Triplet Model Strategy](../strategy/triplet-model.md) for the full methodology.
 
-GodsEye runs active-active across three cloud providers. Every critical byte has three homes. No single cloud failure takes the platform offline.
+GodsEye runs active-active across three **equal-partner** cloud providers (33/33/34). Every critical byte has three homes. No single cloud failure takes the platform offline.
 
 ---
 

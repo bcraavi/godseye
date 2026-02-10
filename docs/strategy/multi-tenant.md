@@ -6,7 +6,7 @@ sidebar_label: "🏢 Multi-Tenant Architecture"
 
 # 🏢 Multi-Tenant Architecture
 
-GodsEye uses a **Bridge Model** multi-tenancy approach -- a tiered isolation strategy that lets each tenant operate at the isolation level matching their size, compliance posture, and budget.
+GodsEye uses a **Bridge Model** multi-tenancy approach -- a tiered isolation strategy that lets each tenant operate at the isolation level matching their size, compliance posture, and budget. Tenant tiers map to [pricing tiers](./open-core.md): Free users get Standard isolation, Team gets Enterprise isolation, Enterprise gets Premium isolation.
 
 ## Tenant Tiers
 
