@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "name": "Godseye",
+  "container": ".devcontainer/devcontainer.json",
+  "runtime": "node22",
+  "install": "bash .codex/setup.sh",
+  "check": "bash .codex/check.sh",
+  "start": "bash .codex/start.sh",
+  "test_scope": "source/configuration checks; no isolated application suite",
+  "limitations": [
+    "Docusaurus type/build checks; no application test suite."
+  ],
+  "required_network_domains": [
+    "registry.npmjs.org"
+  ]
+}
